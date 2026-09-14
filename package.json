@@ -21,7 +21,11 @@
   },
   "homepage": "https://github.com/DavidEricson00/Cade#readme",
   "devDependencies": {
+    "@types/express": "^5.0.6",
     "tsx": "^4.23.13",
     "typescript": "^7.0.2"
+  },
+  "dependencies": {
+    "express": "^5.2.1"
   }
 }
