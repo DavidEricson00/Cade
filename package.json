@@ -1,0 +1,27 @@
+{
+  "name": "cade",
+  "version": "1.0.0",
+  "description": "O **Cadê?** é uma API REST para gerenciamento de itens perdidos e encontrados. A proposta é oferecer uma forma simples de cadastrar, consultar e remover objetos encontrados, permitindo que as informações sejam organizadas e posteriormente utilizadas para facilitar a localização de seus proprietários.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "tsx watch src/app.ts",
+    "start": "tsx src/app.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DavidEricson00/Cade.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/DavidEricson00/Cade/issues"
+  },
+  "homepage": "https://github.com/DavidEricson00/Cade#readme",
+  "devDependencies": {
+    "tsx": "^4.23.13",
+    "typescript": "^7.0.2"
+  }
+}
