@@ -19,3 +19,15 @@ A API deverá disponibilizar:
 * Disponibilização da API em um ambiente de nuvem.
 
 O projeto foi desenvolvido como uma aplicação acadêmica, com foco na aplicação prática dos conceitos de **APIs REST, métodos HTTP, middlewares, manipulação de dados, geração de arquivos, versionamento e deploy em nuvem**.
+
+## Stack
+
+* **Node.js** — Runtime
+* **TypeScript** — Linguagem
+* **Express** — Framework para API REST
+* **Zod** — Validação de dados
+* **PDFKit** — Geração de arquivos PDF
+* **ESLint** — Linting
+* **Prettier** — Formatação de código
+* **Git + GitHub** — Versionamento
+* **Vercel** — Deploy em nuvem
