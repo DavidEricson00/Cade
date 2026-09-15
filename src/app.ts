@@ -1,5 +1,6 @@
 import express from 'express';
 import 'dotenv/config';
+import { itemRoutes } from './routes/item-routes';
 
 const PORT = process.env.PORT || 3000;
 
@@ -11,6 +12,10 @@ app.get('/', (req, res) => {
   res.json({ message: 'Cadê API funcionando!' });
 });
 
+app.use('/items', itemRoutes);
+
 app.listen(PORT, () => {
   console.log(`Servidor rodando na porta ${PORT}`);
 });
+
+export default app;

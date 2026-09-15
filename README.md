@@ -29,3 +29,54 @@ O projeto foi desenvolvido como uma aplicação acadêmica, com foco na aplicaç
 * **PDFKit** — Geração de arquivos PDF
 * **Git + GitHub** — Versionamento
 * **Vercel** — Deploy em nuvem
+
+## Como executar localmente
+
+### Pré-requisitos
+
+* [Node.js](https://nodejs.org/) (v18 ou superior)
+* [pnpm](https://pnpm.io/)
+
+### Passos
+
+```bash
+# Clone o repositório
+git clone https://github.com/DavidEricson00/Cade.git
+cd Cade
+
+# Instale as dependências
+pnpm install
+
+# (Opcional) Crie o arquivo .env com base no exemplo
+cp .env.example .env
+
+# Inicie o servidor em modo de desenvolvimento
+pnpm dev
+```
+
+O servidor estará disponível em `http://localhost:3000`.
+
+### Testando o relatório PDF
+
+```bash
+# Baixar o relatório via curl
+curl -o relatorio.pdf http://localhost:3000/items/report
+
+# Ou abra diretamente no navegador
+# http://localhost:3000/items/report
+```
+
+## Versão publicada
+
+> A URL da versão publicada será adicionada após o deploy na Vercel.
+
+## Rotas da API
+
+| Método   | Rota            | Descrição                              |
+| -------- | --------------- | -------------------------------------- |
+| `GET`    | `/items`        | Lista todos os itens cadastrados       |
+| `POST`   | `/items`        | Cadastra um novo item                  |
+| `GET`    | `/items/:id`    | Busca um item pelo ID                  |
+| `DELETE` | `/items/:id`    | Remove um item                         |
+| `GET`    | `/logs/:date`   | Consulta os logs de uma data           |
+| `GET`    | `/items/report` | Gera e faz download do relatório em PDF |
