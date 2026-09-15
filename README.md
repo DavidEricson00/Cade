@@ -27,7 +27,5 @@ O projeto foi desenvolvido como uma aplicação acadêmica, com foco na aplicaç
 * **Express** — Framework para API REST
 * **Zod** — Validação de dados
 * **PDFKit** — Geração de arquivos PDF
-* **ESLint** — Linting
-* **Prettier** — Formatação de código
 * **Git + GitHub** — Versionamento
 * **Vercel** — Deploy em nuvem
