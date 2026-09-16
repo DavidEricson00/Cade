@@ -3,4 +3,5 @@ export type RequestLog = {
   method: string;
   route: string;
   timestamp: string;
+  timezone?: string;
 };
