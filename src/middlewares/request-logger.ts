@@ -7,11 +7,14 @@ export function requestLogger(
   res: Response,
   next: NextFunction
 ) {
+  const timezone = req.headers['x-timezone'] as string | undefined;
+
   const log = {
     id: crypto.randomUUID(),
     method: req.method,
     route: req.originalUrl,
     timestamp: new Date().toISOString(),
+    timezone,
   };
 
   requestLogs.push(log);
