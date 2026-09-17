@@ -1,4 +1,3 @@
-import { itemSchema } from "../schemas/item.schema";
 import { Request, Response } from "express";
 import {
   getAllItems,
@@ -6,6 +5,7 @@ import {
   createItem,
   deleteItem,
 } from "../services/items.service";
+import { itemSchema } from "../schemas/item.schema";
 
 type ItemParams = {
   id: string;
