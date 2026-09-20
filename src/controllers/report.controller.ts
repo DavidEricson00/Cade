@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { generateReport } from '../services/report-service';
+import { generateReport } from '../services/report.service';
 
 export function getReport(req: Request, res: Response): void {
   try {

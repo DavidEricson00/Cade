@@ -1,7 +1,7 @@
-import { listItems } from './item-service';
+import { getAllItems } from './items.service';
 import { generatePdf } from '../utils/generate-pdf';
 
 export function generateReport(): PDFKit.PDFDocument {
-  const items = listItems();
+  const items = getAllItems();
   return generatePdf(items);
 }

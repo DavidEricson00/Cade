@@ -5,7 +5,7 @@ import {
   addItem,
   removeItem,
 } from "../controllers/items.controller";
-import { getReport } from '../controllers/report-controller';
+import { getReport } from '../controllers/report.controller';
 
 const router = Router();
 
