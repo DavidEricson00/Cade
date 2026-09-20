@@ -1,25 +1,25 @@
-import { Item } from "../types/item";
+import { Item } from '../types/item';
 
 export const items: Item[] = [
-    {
-        id: crypto.randomUUID(),
-        name: "Mochila Preta",
-        description: "Mochila preta contendo cadernos",
-        location: "Praça Central",
-        date: "2026-09-15",
-    },
-    {
-        id: crypto.randomUUID(),
-        name: "Celular Samsung",
-        description: "Celular preto com capa azul",
-        location: "Biblioteca",
-        date: "2026-09-14",
-    },
-    {
-        id: crypto.randomUUID(),
-        name: "Chave",
-        description: "Chave com chaveiro azul",
-        location: "Sala 5",
-        date: "2026-09-13",
-    },
-]
+  {
+    id: crypto.randomUUID(),
+    name: 'Mochila preta',
+    description: 'Mochila preta contendo cadernos',
+    location: 'Praça Central',
+    date: '2026-09-15',
+  },
+  {
+    id: crypto.randomUUID(),
+    name: 'Chave com chaveiro azul',
+    description: 'Chave de casa com chaveiro azul de silicone',
+    location: 'Biblioteca Municipal',
+    date: '2026-09-14',
+  },
+  {
+    id: crypto.randomUUID(),
+    name: 'Óculos de grau',
+    description: 'Óculos de armação preta com lentes de grau',
+    location: 'Terminal Rodoviário',
+    date: '2026-09-13',
+  },
+];
