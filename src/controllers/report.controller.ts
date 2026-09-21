@@ -5,6 +5,18 @@ export function getReport(req: Request, res: Response): void {
   try {
     const doc = generateReport();
 
+    doc.on('error', (error) => {
+      console.error('ERRO NO PDF:', error);
+
+      if (!res.headersSent) {
+        res.status(500).json({
+          success: false,
+          code: 500,
+          message: 'Erro ao gerar relatório',
+        });
+      }
+    });
+
     res.setHeader('Content-Type', 'application/pdf');
     res.setHeader(
       'Content-Disposition',
@@ -12,11 +24,16 @@ export function getReport(req: Request, res: Response): void {
     );
 
     doc.pipe(res);
-  } catch {
-    res.status(500).json({
-      success: false,
-      code: 500,
-      message: 'Erro ao gerar relatório',
-    });
+    doc.end();
+  } catch (error) {
+    console.error('ERRO AO GERAR RELATÓRIO:', error);
+
+    if (!res.headersSent) {
+      res.status(500).json({
+        success: false,
+        code: 500,
+        message: 'Erro ao gerar relatório',
+      });
+    }
   }
 }

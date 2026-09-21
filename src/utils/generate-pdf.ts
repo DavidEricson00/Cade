@@ -99,7 +99,5 @@ export function generatePdf(items: Item[]): PDFKit.PDFDocument {
       { align: 'center' },
     );
 
-  doc.end();
-
   return doc;
 }
