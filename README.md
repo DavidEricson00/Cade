@@ -1,82 +1,88 @@
-# Cadê?
+<div align="center">
+  <img src="https://i.imgur.com/Zh6qUPo.png" alt="Cadê? Logo" width="250"/>
+  <h1>Cadê? - Lost & Found API</h1>
+  <p>
+    <img src="https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white" alt="Node.js" />
+    <img src="https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white" alt="TypeScript" />
+    <img src="https://img.shields.io/badge/Express-000000?style=for-the-badge&logo=express&logoColor=white" alt="Express" />
+    <img src="https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white" alt="Vercel" />
+  </p>
+</div>
 
-O **Cadê?** é uma API REST para gerenciamento de itens perdidos e encontrados. A proposta é oferecer uma forma simples de cadastrar, consultar e remover objetos encontrados, permitindo que as informações sejam organizadas e posteriormente utilizadas para facilitar a localização de seus proprietários.
+---
 
-## Funcionalidades
+## 📌 About the Project
 
-A API deverá disponibilizar:
+**Cadê?** is a RESTful API designed to manage lost and found items effectively. It provides a simple and structured way to register, search, and remove found items, organizing data to streamline returning lost belongings to their rightful owners. 
 
-* Listagem de todos os itens cadastrados;
-* Cadastro de novos itens encontrados;
-* Exclusão de itens;
-* Consulta de um item específico por meio de seu código de identificação;
-* Middleware para restringir o acesso à API aos dias úteis, de segunda a sexta-feira;
-* Middleware para registrar informações sobre cada requisição realizada, incluindo horário e rota acessada;
-* Consulta dos registros de requisições realizadas em uma determinada data;
-* Geração e download de um relatório em PDF contendo a lista de itens cadastrados;
-* Dados inicialmente armazenados de forma mockada, diretamente no código da aplicação;
-* Versionamento do projeto utilizando Git e GitHub;
-* Disponibilização da API em um ambiente de nuvem.
+The project was built with an emphasis on REST API design best practices, custom middleware architecture, data validation, report generation, and serverless deployment.
 
-O projeto foi desenvolvido como uma aplicação acadêmica, com foco na aplicação prática dos conceitos de **APIs REST, métodos HTTP, middlewares, manipulação de dados, geração de arquivos, versionamento e deploy em nuvem**.
+---
 
-## Stack
+## ✨ Features
 
-* **Node.js** — Runtime
-* **TypeScript** — Linguagem
-* **Express** — Framework para API REST
-* **Zod** — Validação de dados
-* **PDFKit** — Geração de arquivos PDF
-* **Git + GitHub** — Versionamento
-* **Vercel** — Deploy em nuvem
+- 📦 **CRUD Operations**: Complete management for lost and found items (stored in memory/mock data).
+- 📅 **Business Days Middleware**: Access restrictions ensuring the API only operates Monday through Friday.
+- 📝 **Audit & Logging Middleware**: Automatic logging of incoming request timestamps, HTTP methods, and routes.
+- 🔍 **Log Filtering**: Dedicated endpoint to query and retrieve request logs for specific dates.
+- 📄 **Dynamic PDF Reports**: PDFKit integration allowing users to generate and download a PDF report of all registered items.
 
-## Como executar localmente
+---
 
-### Pré-requisitos
+## 🛠️ Tech Stack
 
-* [Node.js](https://nodejs.org/) (v18 ou superior)
-* [pnpm](https://pnpm.io/)
+- **[Node.js](https://nodejs.org/)** (v18+) - JavaScript Runtime Engine
+- **[TypeScript](https://www.typescriptlang.org/)** - Strongly Typed Programming Language
+- **[Express](https://expressjs.com/)** - Web Framework for Node.js
+- **[Zod](https://zod.dev/)** - TypeScript-first Schema Validation
+- **[PDFKit](https://pdfkit.org/)** - Dynamic PDF Document Generation
+- **[Vercel](https://vercel.com/)** - Serverless Cloud Deployment
+- **[pnpm](https://pnpm.io/)** - Fast, Disk Space Efficient Package Manager with Workspaces support
 
-### Passos
+---
 
-```bash
-# Clone o repositório
-git clone https://github.com/DavidEricson00/Cade.git
-cd Cade
+## 🚀 API Endpoints
 
-# Instale as dependências
-pnpm install
+| Method | Endpoint | Description |
+| :--- | :--- | :--- |
+| `GET` | `/items` | List all registered items |
+| `POST` | `/items` | Register a new found item |
+| `GET` | `/items/:id` | Get a specific item by its ID |
+| `DELETE` | `/items/:id` | Remove an item |
+| `GET` | `/logs/:date` | Get request logs for a specific date |
+| `GET` | `/items/report` | Generate and download a PDF report of all items |
 
-# (Opcional) Crie o arquivo .env com base no exemplo
-cp .env.example .env
+---
 
-# Inicie o servidor em modo de desenvolvimento
-pnpm dev
-```
+## 💻 Getting Started
 
-O servidor estará disponível em `http://localhost:3000`.
+### Prerequisites
 
-### Testando o relatório PDF
+Ensure you have the following installed on your environment:
+- [Node.js](https://nodejs.org/) (v18 or higher)
+- [pnpm](https://pnpm.io/) package manager
 
-```bash
-# Baixar o relatório via curl
-curl -o relatorio.pdf http://localhost:3000/items/report
+### Local Installation & Running
 
-# Ou abra diretamente no navegador
-# http://localhost:3000/items/report
-```
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/DavidEricson00/Cade.git
+   cd Cade
+   ```
 
-## Versão publicada
+2. **Install dependencies:**
+   ```bash
+   pnpm install
+   ```
 
-> A URL da versão publicada será adicionada após o deploy na Vercel.
+3. **Configure Environment Variables:**
+   ```bash
+   cp .env.example .env
+   ```
 
-## Rotas da API
+4. **Start the development server:**
+   ```bash
+   pnpm dev
+   ```
 
-| Método   | Rota            | Descrição                              |
-| -------- | --------------- | -------------------------------------- |
-| `GET`    | `/items`        | Lista todos os itens cadastrados       |
-| `POST`   | `/items`        | Cadastra um novo item                  |
-| `GET`    | `/items/:id`    | Busca um item pelo ID                  |
-| `DELETE` | `/items/:id`    | Remove um item                         |
-| `GET`    | `/logs/:date`   | Consulta os logs de uma data           |
-| `GET`    | `/items/report` | Gera e faz download do relatório em PDF |
+The server will be running locally at `http://localhost:3000`.
