@@ -19,8 +19,10 @@ app.get('/', (req, res) => {
   res.json({ message: 'API do Cadê? funcionando!' });
 });
 
-app.listen(PORT, () => {
-  console.log(`Servidor rodando na porta ${PORT}`);
-});
+if (process.env.NODE_ENV !== 'production') {
+  app.listen(PORT, () => {
+    console.log(`Servidor rodando na porta ${PORT}`);
+  });
+}
 
 export default app;
