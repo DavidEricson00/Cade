@@ -3,13 +3,7 @@
   "builds": [
     {
       "src": "src/app.ts",
-      "use": "@vercel/node",
-      "config": {
-        "includeFiles": [
-          "node_modules/pdfkit/js/standard-fonts/**/*",
-          "node_modules/.pnpm/pdfkit@0.20.2/node_modules/pdfkit/js/standard-fonts/**/*"
-        ]
-      }
+      "use": "@vercel/node"
     }
   ],
   "routes": [
