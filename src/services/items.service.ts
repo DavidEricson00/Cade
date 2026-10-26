@@ -14,6 +14,17 @@ export function createItem(item: Item) {
     return item;
 }
 
+export function updateItem(id: string, data: Partial<Omit<Item, 'id'>>) {
+    const item = items.find((item) => item.id === id);
+
+    if (!item) {
+        return undefined;
+    }
+
+    Object.assign(item, data);
+    return item;
+}
+
 export function deleteItem(id: string) {
     const index = items.findIndex((item) => item.id === id);
 
