@@ -4,10 +4,12 @@
   "description": "O **Cadê?** é uma API REST para gerenciamento de itens perdidos e encontrados. A proposta é oferecer uma forma simples de cadastrar, consultar e remover objetos encontrados, permitindo que as informações sejam organizadas e posteriormente utilizadas para facilitar a localização de seus proprietários.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "tsx watch src/app.ts",
     "build": "tsc --noEmit",
-    "start": "tsx src/app.ts"
+    "start": "tsx src/app.ts",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage"
   },
   "repository": {
     "type": "git",
