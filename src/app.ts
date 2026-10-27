@@ -4,6 +4,7 @@ import 'dotenv/config';
 
 import { requestLogger } from './middlewares/request-logger';
 import { businessDays } from './middlewares/business-days';
+import { database } from './middlewares/database';
 import router from './routes/index.route';
 
 const PORT = process.env.PORT || 3000;
@@ -18,7 +19,7 @@ app.use(express.json());
 
 app.use(requestLogger);
 app.use(businessDays);
-
+app.use(database);
 app.get('/', (req, res) => {
   res.json({ message: 'API do Cadê? funcionando!' });
 });
