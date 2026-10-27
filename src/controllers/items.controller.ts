@@ -11,39 +11,56 @@ type ItemParams = {
   id: string;
 };
 
-export function listItems(req: Request, res: Response) {
-  const items = getAllItems();
+export async function listItems(req: Request, res: Response) {
+  try {
+    const items = await getAllItems();
 
-  return res.status(200).json({
-    success: true,
-    code: 200,
-    message: "Itens encontrados com sucesso",
-    data: items,
-  });
-}
-
-export function findItem(req: Request<ItemParams>, res: Response) {
-  const { id } = req.params;
-
-  const item = getItemById(id);
-
-  if (!item) {
-    return res.status(404).json({
+    return res.status(200).json({
+      success: true,
+      code: 200,
+      message: "Itens encontrados com sucesso",
+      data: items,
+    });
+  } catch (error) {
+    console.error("Erro ao listar itens:", error);
+    return res.status(500).json({
       success: false,
-      code: 404,
-      message: "Item não encontrado",
+      code: 500,
+      message: "Erro ao buscar itens",
     });
   }
-
-  return res.status(200).json({
-    success: true,
-    code: 200,
-    message: "Item encontrado com sucesso",
-    data: item,
-  });
 }
 
-export function addItem(req: Request, res: Response) {
+export async function findItem(req: Request<ItemParams>, res: Response) {
+  try {
+    const { id } = req.params;
+    const item = await getItemById(id);
+
+    if (!item) {
+      return res.status(404).json({
+        success: false,
+        code: 404,
+        message: "Item não encontrado",
+      });
+    }
+
+    return res.status(200).json({
+      success: true,
+      code: 200,
+      message: "Item encontrado com sucesso",
+      data: item,
+    });
+  } catch (error) {
+    console.error("Erro ao buscar item:", error);
+    return res.status(500).json({
+      success: false,
+      code: 500,
+      message: "Erro ao buscar item",
+    });
+  }
+}
+
+export async function addItem(req: Request, res: Response) {
   const result = itemSchema.safeParse(req.body);
 
   if (!result.success) {
@@ -55,31 +72,48 @@ export function addItem(req: Request, res: Response) {
     });
   }
 
-  const item = createItem({
-    id: crypto.randomUUID(),
-    ...result.data,
-  });
+  try {
+    const item = await createItem({
+      id: crypto.randomUUID(),
+      ...result.data,
+    });
 
-  return res.status(201).json({
-    success: true,
-    code: 201,
-    message: "Item criado com sucesso",
-    data: item,
-  });
-}
-
-export function removeItem(req: Request<ItemParams>, res: Response) {
-  const { id } = req.params;
-
-  const deleted = deleteItem(id);
-
-  if (!deleted) {
-    return res.status(404).json({
+    return res.status(201).json({
+      success: true,
+      code: 201,
+      message: "Item criado com sucesso",
+      data: item,
+    });
+  } catch (error) {
+    console.error("Erro ao criar item:", error);
+    return res.status(500).json({
       success: false,
-      code: 404,
-      message: "Item não encontrado",
+      code: 500,
+      message: "Erro ao criar item",
     });
   }
+}
 
-  return res.status(204).send();
+export async function removeItem(req: Request<ItemParams>, res: Response) {
+  try {
+    const { id } = req.params;
+    const deleted = await deleteItem(id);
+
+    if (!deleted) {
+      return res.status(404).json({
+        success: false,
+        code: 404,
+        message: "Item não encontrado",
+      });
+    }
+
+    return res.status(204).send();
+  } catch (error) {
+    console.error("Erro ao excluir item:", error);
+    return res.status(500).json({
+      success: false,
+      code: 500,
+      message: "Erro ao excluir item",
+    });
+  }
 }
