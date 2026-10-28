@@ -125,7 +125,7 @@ item:
       - name: Exportar itens em CSV
         request:
           method: GET
-          url: "{{baseUrl}}/items/export?from=2026-09-01&to=2026-09-30&delimiter=%3B"
+          url: "{{baseUrl}}/items/export?from=2026-09-01&to=2026-09-30&delimiter=,"
         response: []
   - name: Logs
     item:
