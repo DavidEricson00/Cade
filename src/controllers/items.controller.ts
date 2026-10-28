@@ -9,11 +9,12 @@ import {
   ImageUploadError,
 } from "../services/items.service";
 import { StorageNotConfiguredError } from "../services/storage.service";
-import { itemSchema } from "../schemas/item.schema";
+import {
+  itemSchema,
+  updateItemSchema,
+} from '../schemas/item.schema';
 
 type ItemParams = { id: string };
-
-const updateItemSchema = itemSchema.partial();
 
 function fail(res: Response, status: number, message: string, data?: unknown) {
   return res.status(status).json({

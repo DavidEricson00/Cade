@@ -1,21 +1,12 @@
-
 import type { Request, Response } from 'express';
-import { z } from 'zod';
 import {
   registerUser,
   loginUser,
 } from '../services/auth.service';
-
-const registerSchema = z.object({
-  name: z.string().trim().min(2),
-  email: z.string().trim().email(),
-  password: z.string().min(8),
-});
-
-const loginSchema = z.object({
-  email: z.string().trim().email(),
-  password: z.string().min(1),
-});
+import {
+  registerSchema,
+  loginSchema,
+} from '../schemas/auth.schema';
 
 export async function register(req: Request, res: Response) {
   const validation = registerSchema.safeParse(req.body);
