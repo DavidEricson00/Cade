@@ -1,3 +1,4 @@
+
 import { ItemModel } from "../models/item.model";
 import { Item } from "../types/item";
 
@@ -14,7 +15,7 @@ export async function getAllItems() {
 
 export async function getItemById(id: string) {
   return ItemModel.findOne({ id })
-    .select("-id -_v -createdAt -updatedAt")
+    .select("-id -__v -createdAt -updatedAt")
     .lean();
 }
 
@@ -27,7 +28,24 @@ export async function createItem(item: Item) {
     description: created.description,
     location: created.location,
     date: created.date,
+    ...(created.imageUrl && {
+      imageUrl: created.imageUrl,
+      imagePublicId: created.imagePublicId,
+    }),
   };
+}
+
+export async function updateItem(
+  id: string,
+  data: Partial<Omit<Item, "id">>,
+) {
+  return ItemModel.findOneAndUpdate(
+    { id },
+    { $set: data },
+    { new: true, runValidators: true },
+  )
+    .select("-__v -createdAt -updatedAt")
+    .lean();
 }
 
 export async function deleteItem(id: string) {
