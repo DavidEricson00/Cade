@@ -4,4 +4,6 @@ export type Item = {
   description: string;
   location: string;
   date: string;
+  imageUrl?: string;
+  imagePublicId?: string;
 };

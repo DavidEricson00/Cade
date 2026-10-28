@@ -18,17 +18,19 @@ export async function getItemById(id: string) {
     .lean();
 }
 
-export async function createItem(item: Item) {
-  const created = await ItemModel.create(item);
+export function updateItem(id: string, data: Partial<Omit<Item, 'id'>>) {
+    const item = items.find((item) => item.id === id);
 
-  return {
-    id: created.id,
-    name: created.name,
-    description: created.description,
-    location: created.location,
-    date: created.date,
-  };
+    if (!item) {
+        return undefined;
+    }
+
+    Object.assign(item, data);
+    return item;
 }
+
+export function deleteItem(id: string) {
+    const index = items.findIndex((item) => item.id === id);
 
 export async function deleteItem(id: string) {
   const result = await ItemModel.deleteOne({ id });

@@ -4,7 +4,14 @@ import {
   getItemById,
   createItem,
   deleteItem,
+  updateItem,
 } from "../services/items.service";
+import {
+  uploadImage,
+  deleteImage,
+  StorageNotConfiguredError,
+  UploadedImage,
+} from "../services/storage.service";
 import { itemSchema } from "../schemas/item.schema";
 
 type ItemParams = {
