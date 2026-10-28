@@ -4,6 +4,7 @@ import {
   findUserByEmail,
   findUserByEmailWithPassword,
 } from '../repositories/user.repository';
+import { signToken } from '../config/jwt';
 
 type RegisterUserData = {
   name: string;
@@ -64,14 +65,15 @@ export async function registerUser(data: RegisterUserData) {
 export async function loginUser(
   email: string,
   password: string,
-): Promise<boolean> {
+): Promise<string | null> {
   const user = await findUserByEmailWithPassword(
     email.trim().toLowerCase(),
   );
 
-  if (!user) {
-    return false;
-  }
+  if (!user) return null;
 
-  return bcrypt.compare(password, user.password);
+  const valid = await bcrypt.compare(password, user.password);
+  if (!valid) return null;
+
+  return signToken(user.id);
 }

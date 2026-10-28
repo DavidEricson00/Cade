@@ -74,10 +74,25 @@ export async function login(req: Request, res: Response) {
       return;
     }
 
+    const token = await loginUser(
+      validation.data.email,
+      validation.data.password,
+    );
+
+    if (!token) {
+      res.status(401).json({
+        success: false,
+        code: 401,
+        message: 'E-mail ou senha inválidos',
+      });
+      return;
+    }
+
     res.status(200).json({
       success: true,
       code: 200,
       message: 'Login realizado com sucesso',
+      data: { token },
     });
   } catch {
     res.status(500).json({
