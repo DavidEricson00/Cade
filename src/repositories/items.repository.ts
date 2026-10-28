@@ -4,48 +4,57 @@ import { toDay } from "../utils/format-date";
 
 const PROJECTION = "-__v -createdAt -updatedAt";
 
-export async function findAll(): Promise<Item[]> {
-  const items = await ItemModel.find().select(PROJECTION).lean();
+type ItemDoc = {
+  id?: string | null;
+  _id: { toString(): string };
+  name: string;
+  description: string;
+  location: string;
+  date: Date;
+  imageUrl?: string | null;
+  imagePublicId?: string | null;
+};
 
-  return items.map((item) => ({
-    id: item.id ?? item._id.toString(),
-    name: item.name,
-    description: item.description,
-    location: item.location,
-    date: toDay(item.date),
-    imageUrl: item.imageUrl ?? undefined,
-    imagePublicId: item.imagePublicId ?? undefined,
-  }));
-}
-
-export async function findById(id: string) {
-  return ItemModel.findOne({ id }).select(PROJECTION).lean();
-}
-
-export async function create(item: Item) {
-  const created = await ItemModel.create(item);
-
+function toItem(doc: ItemDoc): Item {
   return {
-    id: created.id,
-    name: created.name,
-    description: created.description,
-    location: created.location,
-    date: created.date,
-    ...(created.imageUrl && {
-      imageUrl: created.imageUrl,
-      imagePublicId: created.imagePublicId,
-    }),
+    id: doc.id ?? doc._id.toString(),
+    name: doc.name,
+    description: doc.description,
+    location: doc.location,
+    date: toDay(doc.date),
+    imageUrl: doc.imageUrl ?? undefined,
+    imagePublicId: doc.imagePublicId ?? undefined,
   };
 }
 
-export async function updateById(id: string, data: Partial<Omit<Item, "id">>) {
-  return ItemModel.findOneAndUpdate(
+export async function findAll(): Promise<Item[]> {
+  const docs = await ItemModel.find().select(PROJECTION).lean();
+  return docs.map(toItem);
+}
+
+export async function findById(id: string): Promise<Item | null> {
+  const doc = await ItemModel.findOne({ id }).select(PROJECTION).lean();
+  return doc ? toItem(doc) : null;
+}
+
+export async function create(item: Item): Promise<Item> {
+  const created = await ItemModel.create(item);
+  return toItem(created.toObject());
+}
+
+export async function updateById(
+  id: string,
+  data: Partial<Omit<Item, "id">>,
+): Promise<Item | null> {
+  const doc = await ItemModel.findOneAndUpdate(
     { id },
     { $set: data },
     { new: true, runValidators: true },
   )
     .select(PROJECTION)
     .lean();
+
+  return doc ? toItem(doc) : null;
 }
 
 export async function deleteById(id: string) {

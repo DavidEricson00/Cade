@@ -16,9 +16,18 @@ export class StorageNotConfiguredError extends Error {
   }
 }
 
+export class ImageUploadError extends Error {
+  constructor(options?: { cause?: unknown }) {
+    super('Erro ao enviar a imagem para a nuvem', options);
+    this.name = 'ImageUploadError';
+  }
+}
+
 /**
  * Envia a imagem (em memória) direto para o Cloudinary via stream.
  * Nada é gravado em disco, o que é necessário em ambientes serverless (Vercel).
+ *
+ * Lança StorageNotConfiguredError ou ImageUploadError.
  */
 export function uploadImage(buffer: Buffer): Promise<UploadedImage> {
   if (!isCloudinaryConfigured()) {
@@ -34,7 +43,11 @@ export function uploadImage(buffer: Buffer): Promise<UploadedImage> {
       },
       (error, result?: UploadApiResponse) => {
         if (error || !result) {
-          return reject(error ?? new Error('Falha no upload da imagem'));
+          return reject(
+            new ImageUploadError({
+              cause: error ?? new Error('Falha no upload da imagem'),
+            }),
+          );
         }
 
         resolve({ url: result.secure_url, publicId: result.public_id });
@@ -46,8 +59,8 @@ export function uploadImage(buffer: Buffer): Promise<UploadedImage> {
 }
 
 /**
- * Remove a imagem do Cloudinary. Falhas são apenas registradas para não
- * impedir a remoção do item no banco.
+ * Remove a imagem do Cloudinary. Nunca lança: falhas são apenas registradas,
+ * para não impedir a operação no banco que já deu certo.
  */
 export async function deleteImage(publicId?: string): Promise<void> {
   if (!publicId || !isCloudinaryConfigured()) return;
@@ -55,6 +68,6 @@ export async function deleteImage(publicId?: string): Promise<void> {
   try {
     await cloudinary.uploader.destroy(publicId, { resource_type: 'image' });
   } catch (error) {
-    console.error('ERRO AO REMOVER IMAGEM DA NUVEM:', error);
+    console.error('ERRO AO REMOVER IMAGEM DA NUVEM:', publicId, error);
   }
 }

@@ -6,9 +6,11 @@ import {
   updateItem,
   removeItem as removeItemService,
   ItemNotFoundError,
-  ImageUploadError,
 } from "../services/items.service";
-import { StorageNotConfiguredError } from "../services/storage.service";
+import {
+  StorageNotConfiguredError,
+  ImageUploadError,
+} from "../services/storage.service";
 import {
   itemSchema,
   updateItemSchema,
