@@ -1,12 +1,20 @@
 
 import type { Request, Response } from 'express';
 import { z } from 'zod';
-import { registerUser, verifyPassword } from '../services/auth.service';
+import {
+  registerUser,
+  loginUser,
+} from '../services/auth.service';
 
 const registerSchema = z.object({
   name: z.string().trim().min(2),
   email: z.string().trim().email(),
   password: z.string().min(8),
+});
+
+const loginSchema = z.object({
+  email: z.string().trim().email(),
+  password: z.string().min(1),
 });
 
 export async function register(req: Request, res: Response) {
@@ -15,8 +23,8 @@ export async function register(req: Request, res: Response) {
   if (!validation.success) {
     res.status(400).json({
       success: false,
+      code: 400,
       message: 'Dados inválidos',
-      errors: validation.error.issues,
     });
     return;
   }
@@ -26,64 +34,41 @@ export async function register(req: Request, res: Response) {
 
     res.status(201).json({
       success: true,
+      code: 201,
       message: 'Usuário cadastrado com sucesso',
       data: user,
     });
-  } catch (error) {
-    if (error instanceof Error && error.message === 'E-mail já cadastrado') {
-      res.status(409).json({
-        success: false,
-        message: error.message,
-      });
-      return;
-    }
-
-    if (
-      error instanceof Error &&
-      'code' in error &&
-      error.code === 11000
-    ) {
-      res.status(409).json({
-        success: false,
-        message: 'E-mail já cadastrado',
-      });
-      return;
-    }
-
-    console.error('Erro ao cadastrar usuário:', error);
-
+  } catch {
     res.status(500).json({
       success: false,
-      message: 'Erro ao cadastrar usuário',
+      code: 500,
+      message: 'Erro interno',
     });
   }
 }
 
 export async function login(req: Request, res: Response) {
-  const schema = z.object({
-    email: z.string().trim().email(),
-    password: z.string().min(1),
-  });
-
-  const validation = schema.safeParse(req.body);
+  const validation = loginSchema.safeParse(req.body);
 
   if (!validation.success) {
     res.status(400).json({
       success: false,
+      code: 400,
       message: 'E-mail ou senha inválidos',
     });
     return;
   }
 
   try {
-    const valid = await verifyPassword(
+    const valid = await loginUser(
       validation.data.email,
       validation.data.password,
     );
 
     if (!valid) {
-      res.status(401).json({
+      res.status(403).json({
         success: false,
+        code: 403,
         message: 'E-mail ou senha inválidos',
       });
       return;
@@ -91,14 +76,14 @@ export async function login(req: Request, res: Response) {
 
     res.status(200).json({
       success: true,
-      message: 'Senha verificada com sucesso',
+      code: 200,
+      message: 'Login realizado com sucesso',
     });
-  } catch (error) {
-    console.error('Erro ao verificar senha:', error);
-
+  } catch {
     res.status(500).json({
       success: false,
-      message: 'Erro ao verificar credenciais',
+      code: 500,
+      message: 'Erro interno',
     });
   }
 }

@@ -1,41 +1,73 @@
-
 import bcrypt from 'bcryptjs';
-import { UserModel } from '../models/user.model';
+import {
+  createUser,
+  findUserByEmail,
+  findUserByEmailWithPassword,
+} from '../repositories/user.repository';
 
-type RegisterUser = {
+type RegisterUserData = {
   name: string;
   email: string;
   password: string;
 };
 
-export async function registerUser(data: RegisterUser) {
-  const email = data.email.trim().toLowerCase();
-
-  const existingUser = await UserModel.findOne({ email });
-
-  if (existingUser) {
-    throw new Error('E-mail já cadastrado');
+export class EmailAlreadyRegisteredError extends Error {
+  constructor() {
+    super('E-mail já cadastrado');
+    this.name = 'EmailAlreadyRegisteredError';
   }
-
-  const hashedPassword = await bcrypt.hash(data.password, 12);
-
-  const user = await UserModel.create({
-    name: data.name.trim(),
-    email,
-    password: hashedPassword,
-  });
-
-  return {
-    id: user.id,
-    name: user.name,
-    email: user.email,
-  };
 }
 
-export async function verifyPassword(email: string, password: string) {
-  const user = await UserModel.findOne({
-    email: email.trim().toLowerCase(),
-  }).select('+password');
+function isDuplicateKeyError(error: unknown): boolean {
+  return (
+    typeof error === 'object' &&
+    error !== null &&
+    'code' in error &&
+    error.code === 11000
+  );
+}
+
+export async function registerUser(data: RegisterUserData) {
+  const name = data.name.trim();
+  const email = data.email.trim().toLowerCase();
+
+  const existingUser = await findUserByEmail(email);
+
+  if (existingUser) {
+    throw new EmailAlreadyRegisteredError();
+  }
+
+  const password = await bcrypt.hash(data.password, 12);
+
+  try {
+    const user = await createUser({
+      name,
+      email,
+      password,
+    });
+
+    return {
+      id: user.id,
+      name: user.name,
+      email: user.email,
+    };
+  } catch (error) {
+    if (isDuplicateKeyError(error)) {
+      throw new EmailAlreadyRegisteredError();
+    }
+
+    throw error;
+  }
+}
+
+
+export async function loginUser(
+  email: string,
+  password: string,
+): Promise<boolean> {
+  const user = await findUserByEmailWithPassword(
+    email.trim().toLowerCase(),
+  );
 
   if (!user) {
     return false;
