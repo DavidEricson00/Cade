@@ -1,55 +1,109 @@
-
-import { ItemModel } from "../models/item.model";
+import { randomUUID } from "node:crypto";
+import * as itemsRepository from "../repositories/items.repository";
+import {
+  uploadImage,
+  deleteImage,
+  StorageNotConfiguredError,
+  UploadedImage,
+} from "./storage.service";
 import { Item } from "../types/item";
 
-export async function getAllItems() {
-  const items = await ItemModel.find()
-    .select("-__v -createdAt -updatedAt")
-    .lean();
+export type CreateItemData = Omit<Item, "id" | "imageUrl" | "imagePublicId">;
+export type UpdateItemData = Partial<CreateItemData>;
 
-  return items.map((item) => ({
-    ...item,
-    id: item.id ?? item._id.toString(),
-  }));
+export class ItemNotFoundError extends Error {
+  constructor() {
+    super("Item não encontrado");
+    this.name = "ItemNotFoundError";
+  }
+}
+
+export class ImageUploadError extends Error {
+  constructor(options?: { cause?: unknown }) {
+    super("Erro ao enviar a imagem para a nuvem", options);
+    this.name = "ImageUploadError";
+  }
+}
+
+async function uploadOrThrow(buffer: Buffer): Promise<UploadedImage> {
+  try {
+    return await uploadImage(buffer);
+  } catch (error) {
+    if (error instanceof StorageNotConfiguredError) throw error;
+    throw new ImageUploadError({ cause: error });
+  }
+}
+
+async function safeDeleteImage(publicId: string) {
+  try {
+    await deleteImage(publicId);
+  } catch (error) {
+    console.error("Erro ao excluir imagem na nuvem:", publicId, error);
+  }
+}
+
+export async function getAllItems() {
+  return itemsRepository.findAll();
 }
 
 export async function getItemById(id: string) {
-  return ItemModel.findOne({ id })
-    .select("-id -__v -createdAt -updatedAt")
-    .lean();
+  const item = await itemsRepository.findById(id);
+  if (!item) throw new ItemNotFoundError();
+  return item;
 }
 
-export async function createItem(item: Item) {
-  const created = await ItemModel.create(item);
+export async function createItem(data: CreateItemData, file?: Buffer) {
+  const image = file ? await uploadOrThrow(file) : undefined;
 
-  return {
-    id: created.id,
-    name: created.name,
-    description: created.description,
-    location: created.location,
-    date: created.date,
-    ...(created.imageUrl && {
-      imageUrl: created.imageUrl,
-      imagePublicId: created.imagePublicId,
-    }),
-  };
+  try {
+    return await itemsRepository.create({
+      id: randomUUID(),
+      ...data,
+      ...(image && { imageUrl: image.url, imagePublicId: image.publicId }),
+    });
+  } catch (error) {
+    if (image) await safeDeleteImage(image.publicId);
+    throw error;
+  }
 }
 
 export async function updateItem(
   id: string,
-  data: Partial<Omit<Item, "id">>,
+  data: UpdateItemData,
+  file?: Buffer,
 ) {
-  return ItemModel.findOneAndUpdate(
-    { id },
-    { $set: data },
-    { new: true, runValidators: true },
-  )
-    .select("-__v -createdAt -updatedAt")
-    .lean();
+  const current = await getItemById(id);
+
+  const image = file ? await uploadOrThrow(file) : undefined;
+
+  let updated;
+  try {
+    updated = await itemsRepository.updateById(id, {
+      ...data,
+      ...(image && { imageUrl: image.url, imagePublicId: image.publicId }),
+    });
+  } catch (error) {
+    if (image) await safeDeleteImage(image.publicId);
+    throw error;
+  }
+
+  if (!updated) {
+    if (image) await safeDeleteImage(image.publicId);
+    throw new ItemNotFoundError();
+  }
+
+  if (image && current.imagePublicId) {
+    await safeDeleteImage(current.imagePublicId);
+  }
+
+  return updated;
 }
 
-export async function deleteItem(id: string) {
-  const result = await ItemModel.deleteOne({ id });
+export async function removeItem(id: string) {
+  const item = await getItemById(id);
 
-  return result.deletedCount > 0;
+  const deleted = await itemsRepository.deleteById(id);
+  if (!deleted) throw new ItemNotFoundError();
+
+  if (item.imagePublicId) await safeDeleteImage(item.imagePublicId);
 }
