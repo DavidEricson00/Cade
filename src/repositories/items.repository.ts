@@ -1,14 +1,20 @@
 import { ItemModel } from "../models/item.model";
 import { Item } from "../types/item";
+import { toDay } from "../utils/format-date";
 
 const PROJECTION = "-__v -createdAt -updatedAt";
 
-export async function findAll() {
+export async function findAll(): Promise<Item[]> {
   const items = await ItemModel.find().select(PROJECTION).lean();
 
   return items.map((item) => ({
-    ...item,
     id: item.id ?? item._id.toString(),
+    name: item.name,
+    description: item.description,
+    location: item.location,
+    date: toDay(item.date),
+    imageUrl: item.imageUrl ?? undefined,
+    imagePublicId: item.imagePublicId ?? undefined,
   }));
 }
 
