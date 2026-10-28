@@ -1,378 +1,145 @@
 opencollection: 1.0.0
 info:
-  name: API do Cadê?
-config:
-  proxy:
-    inherit: true
-    config:
-      protocol: http
-      hostname: ''
-      port: ''
-      auth:
-        username: ''
-        password: ''
-      bypassProxy: ''
-  environments:
-    - name: Servidor
-      variables:
-        - name: baseUrl
-          value: ''
-items:
-  - info:
-      name: Buscar item por ID
-      type: http
-      seq: 4
-    http:
+  name: Cadê
+  description: Coleção OpenAPI para testar as rotas da aplicação Cadê?
+  schema: https://schema.getpostman.com/json/collection/v2.1.0/collection.json
+variable:
+  - key: baseUrl
+    value: http://localhost:3000
+item:
+  - name: Verificar se a API está funcionando
+    request:
       method: GET
-      url: '{{baseUrl}}/items/:id'
-      params:
-        - name: id
-          value: ''
-          type: path
-          description: ID do item
-      auth: inherit
-    runtime:
-      variables:
-        - name: baseUrl
-          value: ''
-    settings:
-      encodeUrl: true
-      timeout: 0
-      followRedirects: true
-      maxRedirects: 5
-      forwardAuthorizationHeader: false
-    examples:
-      - name: 200 Response
-        description: Item encontrado com sucesso
+      url: "{{baseUrl}}/"
+    response: []
+  - name: Autenticação
+    item:
+      - name: Cadastrar usuário
         request:
-          url: '{{baseUrl}}/items/:id'
-          method: GET
-          params:
-            - name: id
-              value: ''
-              type: path
-              description: ID do item
-        response:
-          status: 200
-          statusText: OK
-          body:
-            type: text
-            data: ''
-      - name: 404 Response
-        description: Item não encontrado
-        request:
-          url: '{{baseUrl}}/items/:id'
-          method: GET
-          params:
-            - name: id
-              value: ''
-              type: path
-              description: ID do item
-        response:
-          status: 404
-          statusText: Not Found
-          body:
-            type: text
-            data: ''
-  - info:
-      name: Consultar logs por data
-      type: http
-      seq: 6
-    http:
-      method: GET
-      url: '{{baseUrl}}/logs/:date'
-      headers:
-        - name: x-timezone
-          value: UTC
-          description: Timezone IANA usado na consulta
-      params:
-        - name: date
-          value: ''
-          type: path
-      auth: inherit
-    runtime:
-      variables:
-        - name: baseUrl
-          value: ''
-    settings:
-      encodeUrl: true
-      timeout: 0
-      followRedirects: true
-      maxRedirects: 5
-      forwardAuthorizationHeader: false
-    examples:
-      - name: 200 Response
-        description: Logs consultados com sucesso
-        request:
-          url: '{{baseUrl}}/logs/:date'
-          method: GET
-          headers:
-            - name: x-timezone
-              value: UTC
-              description: Timezone IANA usado na consulta
-          params:
-            - name: date
-              value: ''
-              type: path
-        response:
-          status: 200
-          statusText: OK
-          body:
-            type: text
-            data: ''
-      - name: 400 Response
-        description: Data ou timezone inválido
-        request:
-          url: '{{baseUrl}}/logs/:date'
-          method: GET
-          headers:
-            - name: x-timezone
-              value: UTC
-              description: Timezone IANA usado na consulta
-          params:
-            - name: date
-              value: ''
-              type: path
-        response:
-          status: 400
-          statusText: Bad Request
-          body:
-            type: text
-            data: ''
-  - info:
-      name: Criar um item
-      type: http
-      seq: 3
-    http:
-      method: POST
-      url: '{{baseUrl}}/items'
-      body:
-        type: json
-        data: |-
-          {
-            "name": "Mochila preta",
-            "description": "Mochila encontrada perto da biblioteca",
-            "location": "Biblioteca",
-            "date": "2026-09-20"
-          }
-      auth: inherit
-    runtime:
-      variables:
-        - name: baseUrl
-          value: ''
-    settings:
-      encodeUrl: true
-      timeout: 0
-      followRedirects: true
-      maxRedirects: 5
-      forwardAuthorizationHeader: false
-    examples:
-      - name: 201 Response
-        description: Item criado com sucesso
-        request:
-          url: '{{baseUrl}}/items'
           method: POST
+          url: "{{baseUrl}}/auth/register"
           body:
-            type: json
-            data: |-
+            mode: raw
+            raw: |
               {
-                "name": "Mochila preta",
-                "description": "Mochila encontrada perto da biblioteca",
-                "location": "Biblioteca"
+                "name": "David",
+                "email": "david@example.com",
+                "password": "senha123"
               }
-        response:
-          status: 201
-          statusText: Created
-          body:
-            type: text
-            data: ''
-      - name: 400 Response
-        description: Dados inválidos
+            options:
+              raw:
+                language: json
+        response: []
+      - name: Login
         request:
-          url: '{{baseUrl}}/items'
           method: POST
+          url: "{{baseUrl}}/auth/login"
           body:
-            type: json
-            data: |-
+            mode: raw
+            raw: |
               {
-                "name": "Mochila preta",
-                "description": "Mochila encontrada perto da biblioteca",
-                "location": "Biblioteca"
+                "email": "david@example.com",
+                "password": "senha123"
               }
-        response:
-          status: 400
-          statusText: Bad Request
-          body:
-            type: text
-            data: ''
-  - info:
-      name: Excluir item por ID
-      type: http
-      seq: 5
-    http:
-      method: DELETE
-      url: '{{baseUrl}}/items/:id'
-      params:
-        - name: id
-          value: ''
-          type: path
-          description: ID do item
-      auth: inherit
-    runtime:
-      variables:
-        - name: baseUrl
-          value: ''
-    settings:
-      encodeUrl: true
-      timeout: 0
-      followRedirects: true
-      maxRedirects: 5
-      forwardAuthorizationHeader: false
-    examples:
-      - name: 204 Response
-        description: Item excluído com sucesso
+            options:
+              raw:
+                language: json
+        response: []
+  - name: Itens
+    item:
+      - name: Listar todos os itens
         request:
-          url: '{{baseUrl}}/items/:id'
+          method: GET
+          url: "{{baseUrl}}/items"
+        response: []
+      - name: Buscar item por ID
+        request:
+          method: GET
+          url: "{{baseUrl}}/items/{{itemId}}"
+        response: []
+      - name: Criar um item
+        request:
+          method: POST
+          url: "{{baseUrl}}/items"
+          auth:
+            type: bearer
+            bearer:
+              - key: token
+                value: "{{token}}"
+                type: string
+          body:
+            mode: formdata
+            formdata:
+              - key: name
+                value: Mochila preta
+                type: text
+              - key: description
+                value: Mochila encontrada perto da biblioteca
+                type: text
+              - key: location
+                value: Biblioteca
+                type: text
+              - key: date
+                value: "2026-09-20"
+                type: text
+              - key: image
+                type: file
+                src: ""
+        response: []
+      - name: Atualizar um item
+        request:
+          method: PATCH
+          url: "{{baseUrl}}/items/{{itemId}}"
+          auth:
+            type: bearer
+            bearer:
+              - key: token
+                value: "{{token}}"
+                type: string
+          body:
+            mode: formdata
+            formdata:
+              - key: name
+                value: Mochila preta atualizada
+                type: text
+              - key: image
+                type: file
+                src: ""
+        response: []
+      - name: Excluir item por ID
+        request:
           method: DELETE
-          params:
-            - name: id
-              value: ''
-              type: path
-              description: ID do item
-        response:
-          status: 204
-          statusText: No Content
-          body:
-            type: text
-            data: ''
-      - name: 404 Response
-        description: Item não encontrado
+          url: "{{baseUrl}}/items/{{itemId}}"
+          auth:
+            type: bearer
+            bearer:
+              - key: token
+                value: "{{token}}"
+                type: string
+        response: []
+      - name: Gerar relatório em PDF
         request:
-          url: '{{baseUrl}}/items/:id'
-          method: DELETE
-          params:
-            - name: id
-              value: ''
-              type: path
-              description: ID do item
-        response:
-          status: 404
-          statusText: Not Found
-          body:
-            type: text
-            data: ''
-  - info:
-      name: Gera Report em PDF
-      type: http
-      seq: 7
-    http:
-      method: GET
-      url: '{{baseUrl}}/items/report'
-      auth: inherit
-    runtime:
-      variables:
-        - name: baseUrl
-          value: ''
-    settings:
-      encodeUrl: true
-      timeout: 0
-      followRedirects: true
-      maxRedirects: 5
-      forwardAuthorizationHeader: false
-    examples:
-      - name: 200 Response
-        description: Item encontrado com sucesso
-        request:
-          url: '{{baseUrl}}/items/:id'
           method: GET
-          params:
-            - name: id
-              value: ''
-              type: path
-              description: ID do item
-        response:
-          status: 200
-          statusText: OK
-          body:
-            type: text
-            data: ''
-      - name: 404 Response
-        description: Item não encontrado
+          url: "{{baseUrl}}/items/report"
+        response: []
+      - name: Exportar itens em CSV
         request:
-          url: '{{baseUrl}}/items/:id'
           method: GET
-          params:
-            - name: id
-              value: ''
-              type: path
-              description: ID do item
-        response:
-          status: 404
-          statusText: Not Found
-          body:
-            type: text
-            data: ''
-  - info:
-      name: Listar todos os itens
-      type: http
-      seq: 2
-    http:
-      method: GET
-      url: '{{baseUrl}}/items'
-      auth: inherit
-    runtime:
-      variables:
-        - name: baseUrl
-          value: ''
-    settings:
-      encodeUrl: true
-      timeout: 0
-      followRedirects: true
-      maxRedirects: 5
-      forwardAuthorizationHeader: false
-    examples:
-      - name: 200 Response
-        description: Itens encontrados com sucesso
+          url: "{{baseUrl}}/items/export?from=2026-09-01&to=2026-09-30&delimiter=%3B"
+        response: []
+  - name: Logs
+    item:
+      - name: Consultar logs por data
         request:
-          url: '{{baseUrl}}/items'
           method: GET
-        response:
-          status: 200
-          statusText: OK
-          body:
-            type: text
-            data: ''
-  - info:
-      name: Verificar se a API está funcionando
-      type: http
-      seq: 1
-    http:
-      method: GET
-      url: '{{baseUrl}}/'
-      auth: inherit
-    runtime:
-      variables:
-        - name: baseUrl
-          value: ''
-    settings:
-      encodeUrl: true
-      timeout: 0
-      followRedirects: true
-      maxRedirects: 5
-      forwardAuthorizationHeader: false
-    examples:
-      - name: 200 Response
-        description: API funcionando
-        request:
-          url: '{{baseUrl}}/'
-          method: GET
-        response:
-          status: 200
-          statusText: OK
-          body:
-            type: text
-            data: ''
-docs:
-  content: Coleção OpenAPI para testar as rotas da aplicação Cadê?
-  type: text/markdown
-bundled: true
+          url: "{{baseUrl}}/logs/{{date}}"
+          header:
+            - key: x-timezone
+              value: America/Fortaleza
+          auth:
+            type: bearer
+            bearer:
+              - key: token
+                value: "{{token}}"
+                type: string
+        response: []
