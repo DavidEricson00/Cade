@@ -8,7 +8,7 @@ const ITEM_COLUMNS: CsvColumn<Item>[] = [
   { header: 'Descrição', value: (item) => item.description },
   { header: 'Local', value: (item) => item.location },
   { header: 'Data', value: (item) => item.date },
-  { header: 'Imagem', value: (item) => item.imageUrl },
+  { header: 'Imagem', value: (item) => item.imageUrl ?? '' },
 ];
 
 export type ExportFilters = {
