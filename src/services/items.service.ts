@@ -1,37 +1,55 @@
-import { items } from "../data/items";
+
+import { ItemModel } from "../models/item.model";
 import { Item } from "../types/item";
 
-export function getAllItems() {
-    return items;
+export async function getAllItems() {
+  const items = await ItemModel.find()
+    .select("-__v -createdAt -updatedAt")
+    .lean();
+
+  return items.map((item) => ({
+    ...item,
+    id: item.id ?? item._id.toString(),
+  }));
 }
 
-export function getItemById(id: string) {
-    return items.find((item) => item.id === id);
+export async function getItemById(id: string) {
+  return ItemModel.findOne({ id })
+    .select("-id -__v -createdAt -updatedAt")
+    .lean();
 }
 
-export function createItem(item: Item) {
-    items.push(item);
-    return item;
+export async function createItem(item: Item) {
+  const created = await ItemModel.create(item);
+
+  return {
+    id: created.id,
+    name: created.name,
+    description: created.description,
+    location: created.location,
+    date: created.date,
+    ...(created.imageUrl && {
+      imageUrl: created.imageUrl,
+      imagePublicId: created.imagePublicId,
+    }),
+  };
 }
 
-export function updateItem(id: string, data: Partial<Omit<Item, 'id'>>) {
-    const item = items.find((item) => item.id === id);
-
-    if (!item) {
-        return undefined;
-    }
-
-    Object.assign(item, data);
-    return item;
+export async function updateItem(
+  id: string,
+  data: Partial<Omit<Item, "id">>,
+) {
+  return ItemModel.findOneAndUpdate(
+    { id },
+    { $set: data },
+    { new: true, runValidators: true },
+  )
+    .select("-__v -createdAt -updatedAt")
+    .lean();
 }
 
-export function deleteItem(id: string) {
-    const index = items.findIndex((item) => item.id === id);
+export async function deleteItem(id: string) {
+  const result = await ItemModel.deleteOne({ id });
 
-    if (index === -1) {
-        return false;
-    }
-
-    items.splice(index, 1);
-    return true;
+  return result.deletedCount > 0;
 }

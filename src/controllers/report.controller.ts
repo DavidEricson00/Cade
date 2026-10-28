@@ -1,11 +1,14 @@
 import { Request, Response } from 'express';
 import { generateReport } from '../services/report.service';
 
-export function getReport(req: Request, res: Response): void {
+export async function getReport(
+  req: Request,
+  res: Response,
+): Promise<void> {
   try {
-    const doc = generateReport();
+    const doc = await generateReport();
 
-    doc.on('error', (error) => {
+    doc.on('error', (error: Error) => {
       console.error('ERRO NO PDF:', error);
 
       if (!res.headersSent) {
@@ -14,6 +17,8 @@ export function getReport(req: Request, res: Response): void {
           code: 500,
           message: 'Erro ao gerar relatório',
         });
+      } else {
+        res.destroy(error);
       }
     });
 
