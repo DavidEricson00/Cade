@@ -7,7 +7,9 @@ export async function connectToDatabase() {
         throw new Error("MONGODB_URI não foi definida no arquivo .env");
     }
 
-    await mongoose.connect(uri);
+    await mongoose.connect(uri, {
+        driverInfo: { name: 'nodejs', version: '24' },
+    });
     
     console.log("MongoDB conectado com sucesso!");
 }
