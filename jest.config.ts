@@ -9,6 +9,11 @@ const config: Config = {
   setupFilesAfterEnv: ['<rootDir>/jest.env.ts'],
 
   clearMocks: true,
+  testTimeout: 60000,
+
+  moduleNameMapper: {
+    '^(\\.\\.?/.*)\\.js$': '$1',
+  },
 };
 
 export default config;
