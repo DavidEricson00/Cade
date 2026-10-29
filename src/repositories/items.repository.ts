@@ -49,7 +49,7 @@ export async function updateById(
   const doc = await ItemModel.findOneAndUpdate(
     { id },
     { $set: data },
-    { new: true, runValidators: true },
+    { returnDocument: 'after', runValidators: true },
   )
     .select(PROJECTION)
     .lean();
