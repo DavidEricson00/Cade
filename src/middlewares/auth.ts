@@ -24,8 +24,15 @@ export function authenticate(
   const token = header.slice(7);
 
   try {
-    const payload = jwt.verify(token, process.env.JWT_SECRET as string);
-    req.userId = payload.sub as string;
+    const payload = jwt.verify(token, process.env.JWT_SECRET as string, {
+      algorithms: ['HS256'],
+    });
+
+    if (typeof payload === 'string' || 'purpose' in payload || !payload.sub) {
+      throw new Error('Token não permitido');
+    }
+
+    req.userId = payload.sub;
     next();
   } catch {
     res.status(401).json({
