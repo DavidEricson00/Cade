@@ -5,6 +5,9 @@ import {
   findUserByEmailWithPassword,
 } from '../repositories/user.repository';
 import { signToken } from '../config/jwt';
+import { startTwoFactorChallenge } from './twoFactor.service';
+
+let dummyHash: Promise<string> | null = null;
 
 type RegisterUserData = {
   name: string;
@@ -17,6 +20,11 @@ export class EmailAlreadyRegisteredError extends Error {
     super('E-mail já cadastrado');
     this.name = 'EmailAlreadyRegisteredError';
   }
+}
+
+function getDummyHash(): Promise<string> {
+  dummyHash ??= bcrypt.hash('cade-dummy-password', 12);
+  return dummyHash;
 }
 
 function isDuplicateKeyError(error: unknown): boolean {
@@ -61,6 +69,28 @@ export async function registerUser(data: RegisterUserData) {
   }
 }
 
+export async function startLogin(
+  email: string,
+  password: string,
+): Promise<{ challengeToken: string } | null> {
+  const user = await findUserByEmailWithPassword(
+    email.trim().toLowerCase(),
+  );
+
+  if (!user) {
+    await bcrypt.compare(password, await getDummyHash());
+    return null;
+  }
+
+  const valid = await bcrypt.compare(password, user.password);
+  if (!valid) return null;
+
+  return startTwoFactorChallenge({
+    id: user.id,
+    name: user.name,
+    email: user.email,
+  });
+}
 
 export async function loginUser(
   email: string,

@@ -20,3 +20,7 @@ export async function findUserByEmailWithPassword(email: string) {
 export async function createUser(data: CreateUserData) {
   return UserModel.create(data);
 }
+
+export async function findUserById(id: string) {
+  return UserModel.findById(id).exec();
+}
