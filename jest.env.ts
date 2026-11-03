@@ -4,6 +4,8 @@ process.env.NODE_ENV = 'test';
 process.env.TZ = 'UTC';
 process.env.JWT_SECRET = process.env.JWT_SECRET || 'chave-secreta-de-teste-super-segura-123456';
 process.env.JWT_EXPIRES_IN = '1h';
+process.env.TWO_FACTOR_CODE_SECRET =
+process.env.TWO_FACTOR_CODE_SECRET || 'segredo-2fa-de-teste-super-seguro-123456';
 process.env.CLOUDINARY_CLOUD_NAME = process.env.CLOUDINARY_CLOUD_NAME || 'test-cloud';
 process.env.CLOUDINARY_API_KEY = process.env.CLOUDINARY_API_KEY || '123456789012345';
 process.env.CLOUDINARY_API_SECRET = process.env.CLOUDINARY_API_SECRET || 'secret-test-key-abcdef';
@@ -38,7 +40,9 @@ beforeAll(() => {
       first.includes('Erro ao buscar itens') ||
       first.includes('Erro ao excluir item') ||
       first.includes('Erro ao criar item') ||
-      first.includes('Erro ao atualizar item')
+      first.includes('Erro ao atualizar item') ||
+      first.includes('[2fa] falha no envio do e-mail') ||
+      first.includes('[auth] erro inesperado')
     ) {
       // Suprime logs de erros propositais esperados nos testes
       return;
