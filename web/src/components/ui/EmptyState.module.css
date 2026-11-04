@@ -1,0 +1,31 @@
+.empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--e-3);
+  padding: var(--e-10) var(--e-5);
+  text-align: center;
+  background: var(--superficie);
+  border: 1.5px dashed var(--tinta);
+  border-radius: var(--raio-md);
+}
+
+.illustration {
+  margin-bottom: var(--e-1);
+}
+
+.title {
+  font-family: var(--fonte-titulo);
+  font-size: var(--t-h2);
+  font-weight: 600;
+}
+
+.description {
+  max-width: 46ch;
+  color: var(--tinta-suave);
+}
+
+.action {
+  margin-top: var(--e-2);
+}
