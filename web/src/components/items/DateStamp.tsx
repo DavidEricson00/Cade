@@ -1,4 +1,3 @@
-import { Check } from 'lucide-react';
 import { formatDay, formatStamp } from '../../lib/date';
 import styles from './DateStamp.module.css';
 
