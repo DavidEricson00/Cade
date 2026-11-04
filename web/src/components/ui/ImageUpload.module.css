@@ -1,0 +1,175 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: var(--e-2);
+}
+
+.label {
+  font-size: var(--t-pequeno);
+  font-weight: 600;
+  color: var(--tinta);
+}
+
+.dropzone {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--e-3);
+  min-height: 196px;
+  padding: var(--e-5);
+  overflow: hidden;
+  background: var(--superficie);
+  border: 1.5px dashed var(--tinta);
+  border-radius: var(--raio-md);
+  transition: background-color var(--duracao-curta) var(--easing);
+}
+
+.dropzone[data-dragging] {
+  background: var(--kraft);
+}
+
+.dropzone[data-error],
+.previewCard[data-error] {
+  border-color: var(--erro);
+}
+
+.dropTrigger {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--e-2);
+  padding: var(--e-2) var(--e-3);
+  font-weight: 600;
+  text-align: center;
+  color: var(--tinta);
+  background: transparent;
+  border: none;
+  border-radius: var(--raio-controle);
+}
+
+.dropTrigger:hover {
+  text-decoration: underline;
+}
+
+.mobilePrompt {
+  display: inline;
+}
+
+.desktopPrompt {
+  display: none;
+}
+
+.cameraButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 36px;
+  padding: 0 var(--e-3);
+  font-size: var(--t-pequeno);
+  font-weight: 600;
+  color: var(--tinta);
+  background: var(--kraft);
+  border: var(--borda-forte);
+  border-radius: var(--raio-sm);
+}
+
+@media (min-width: 640px) {
+  .mobilePrompt {
+    display: none;
+  }
+
+  .desktopPrompt {
+    display: inline;
+  }
+
+  .cameraButton {
+    display: none;
+  }
+}
+
+.previewCard {
+  overflow: hidden;
+  background: var(--superficie);
+  border: var(--borda-forte);
+  border-radius: var(--raio-md);
+}
+
+.previewFrame {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  background: var(--kraft);
+  border-bottom: var(--borda-leve);
+}
+
+.previewImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.previewFooter {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--e-3);
+  padding: var(--e-3);
+}
+
+.previewFooter > span {
+  overflow: hidden;
+  max-width: 100%;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.previewActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--e-2);
+}
+
+.progressBar {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 4px;
+  background: var(--kraft);
+  overflow: hidden;
+}
+
+.progressBar::after {
+  content: '';
+  display: block;
+  width: 45%;
+  height: 100%;
+  background: var(--urucum);
+  animation: deslizar 900ms var(--easing) infinite;
+}
+
+@keyframes deslizar {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(230%);
+  }
+}
+
+.errorText {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+  font-size: var(--t-pequeno);
+  font-weight: 500;
+  line-height: 1.4;
+  color: var(--erro);
+}
+
+.errorText svg {
+  flex-shrink: 0;
+  margin-top: 2px;
+}
