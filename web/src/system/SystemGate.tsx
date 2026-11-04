@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react';
 import { WifiOff } from 'lucide-react';
+import { Button } from '../components/ui/Button';
 import { setSystemMode, useSystem } from './system';
 import { ClosedSign, DrawerIllustration, StatusScreen } from './StatusScreen';
 import styles from './SystemGate.module.css';
@@ -28,15 +29,14 @@ export function SystemGate({ children }: { children: ReactNode }) {
         description="Não conseguimos acessar os dados agora. Tente de novo em instantes."
         illustration={<DrawerIllustration />}
         action={
-          <button
-            type="button"
+          <Button
             onClick={() => {
               setSystemMode('ok');
               window.location.reload();
             }}
           >
             Tentar novamente
-          </button>
+          </Button>
         }
       />
     );

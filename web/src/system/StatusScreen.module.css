@@ -37,24 +37,3 @@
   margin-top: var(--e-4);
 }
 
-/* Botão provisório; o componente Button chega na etapa 2 */
-.action button {
-  min-height: var(--altura-controle);
-  padding: 0 var(--e-5);
-  font-weight: 600;
-  color: var(--branco);
-  background: var(--urucum);
-  border: var(--borda-forte);
-  border-radius: var(--raio-controle);
-  box-shadow: var(--sombra-dura-sm);
-}
-
-.action button:hover {
-  background: var(--urucum-escuro);
-}
-
-.action button:active {
-  box-shadow: none;
-  transform: translate(2px, 2px);
-}
-
