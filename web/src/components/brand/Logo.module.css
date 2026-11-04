@@ -1,0 +1,36 @@
+.logo {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--e-2);
+  color: var(--tinta);
+}
+
+.icon {
+  flex-shrink: 0;
+  transform: rotate(-6deg);
+}
+
+.wordmark {
+  font-family: var(--fonte-titulo);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.question {
+  color: var(--urucum);
+}
+
+.sm .wordmark {
+  font-size: 1.25rem;
+}
+
+.md .wordmark {
+  font-size: 1.5rem;
+}
+
+.lg .wordmark {
+  font-size: 2rem;
+}
+

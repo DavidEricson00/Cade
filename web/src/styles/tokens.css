@@ -1,0 +1,97 @@
+/* Tokens do design system (seção 3 a 5). Nunca usar valores soltos nos componentes. */
+:root {
+  /* Cores */
+  --papel: #F6F1E7;
+  --superficie: #FFFDF8;
+  --kraft: #E9DCC0;
+  --tinta: #1F1B16;
+  --tinta-suave: #5C554B;
+  --linha: #D9D0BF;
+  --urucum: #C73A15;
+  --urucum-escuro: #A62E0E;
+  --mata: #1F5C4A;
+  --mata-claro: #DDEBE3;
+  --fita: #F2B632;
+  --fita-escura: #C99216;
+  --erro: #B3261E;
+  --erro-claro: #F9DEDC;
+  --aviso-claro: #FBEFC9;
+  --veu: rgba(31, 27, 22, 0.5);
+  --branco: #FFFFFF; /* texto só sobre urucum ou mata */
+
+  /* Sombras duras (sem desfoque) */
+  --sombra-dura: 3px 3px 0 var(--tinta);
+  --sombra-dura-sm: 2px 2px 0 var(--tinta);
+  --sombra-dura-lg: 5px 5px 0 var(--tinta);
+
+  /* Raios */
+  --raio-sm: 6px;
+  --raio-controle: 8px;
+  --raio-md: 10px;
+  --raio-lg: 14px;
+
+  /* Bordas */
+  --borda-forte: 1.5px solid var(--tinta);
+  --borda-leve: 1px solid var(--linha);
+
+  /* Espaçamento (base 4px) */
+  --e-1: 4px;
+  --e-2: 8px;
+  --e-3: 12px;
+  --e-4: 16px;
+  --e-5: 20px;
+  --e-6: 24px;
+  --e-8: 32px;
+  --e-10: 40px;
+  --e-14: 56px;
+  --e-20: 80px;
+
+  /* Tipografia */
+  --fonte-titulo: 'Bricolage Grotesque', system-ui, sans-serif;
+  --fonte-texto: 'Instrument Sans', system-ui, sans-serif;
+  --fonte-mono: 'IBM Plex Mono', ui-monospace, monospace;
+
+  --t-display: 2.125rem; /* 34px */
+  --t-h1: 1.75rem;       /* 28px */
+  --t-h2: 1.375rem;      /* 22px */
+  --t-h3: 1.125rem;      /* 18px */
+  --t-corpo: 1rem;       /* 16px */
+  --t-pequeno: 0.875rem; /* 14px */
+  --t-rotulo: 0.75rem;   /* 12px */
+
+  /* Layout */
+  --largura-conteudo: 1200px;
+  --largura-form: 440px;
+  --largura-detalhe: 1040px;
+  --sidebar: 248px;
+  --topbar: 56px;
+  --tabbar: 64px;
+  --padding-pagina: var(--e-4);
+  --alvo-toque: 44px;
+  --altura-controle: 44px;
+
+  /* Movimento */
+  --duracao: 160ms;
+  --duracao-curta: 120ms;
+  --easing: cubic-bezier(0.2, 0.7, 0.2, 1);
+
+  /* Foco */
+  --anel-foco: 0 0 0 3px var(--fita);
+}
+
+@media (min-width: 640px) {
+  :root {
+    --padding-pagina: var(--e-6);
+  }
+}
+
+@media (min-width: 1024px) {
+  :root {
+    --padding-pagina: var(--e-8);
+    --altura-controle: 40px;
+    --t-display: 3rem;    /* 48px */
+    --t-h1: 2.25rem;      /* 36px */
+    --t-h2: 1.625rem;     /* 26px */
+    --t-h3: 1.25rem;      /* 20px */
+  }
+}
