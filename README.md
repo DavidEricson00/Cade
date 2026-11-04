@@ -16,24 +16,6 @@
 
 **Cadê?** is a full-stack lost-and-found platform. Visitors can browse, search, and filter registered items without an account. Administrators log in through a two-factor authentication flow, and can create, edit, and delete items, generate PDF and CSV reports, and inspect server access logs.
 
----
-
-## Table of Contents
-
-- [Screenshots](#screenshots)
-- [Architecture](#architecture)
-- [Features](#features)
-- [Tech Stack](#tech-stack)
-- [Project Structure](#project-structure)
-- [API Reference](#api-reference)
-- [Getting Started](#getting-started)
-- [Environment Variables](#environment-variables)
-- [Running Tests](#running-tests)
-- [Deployment](#deployment)
-- [License](#license)
-
----
-
 ## Screenshots
 
 ### Public Experience
@@ -433,6 +415,40 @@ Deployed as a static site. The `vercel.json` rewrites:
 
 ---
 
+## 👥 Contributors
+
+<div align="center">
+
+<table>
+  <tr>
+    <td align="center" width="200">
+      <a href="https://github.com/DavidEricson00">
+        <img src="https://avatars.githubusercontent.com/u/169815129?v=4&s=200" width="120" height="120" alt="DavidEricson00" /><br />
+        <sub><b>David Ericson</b></sub><br />
+        <sub>@DavidEricson00</sub>
+      </a>
+    </td>
+    <td align="center" width="200">
+      <a href="https://github.com/RodrigoMatos00">
+        <img src="https://avatars.githubusercontent.com/u/164960237?v=4&s=200" width="120" height="120" alt="RodrigoMatos00" /><br />
+        <sub><b>Rodrigo Matos</b></sub><br />
+        <sub>@RodrigoMatos00</sub>
+      </a>
+    </td>
+    <td align="center" width="200">
+      <a href="https://github.com/leolucena22">
+        <img src="https://avatars.githubusercontent.com/u/53834464?v=4&s=200" width="120" height="120" alt="leolucena22" /><br />
+        <sub><b>Leo Lucena</b></sub><br />
+        <sub>@leolucena22</sub>
+      </a>
+    </td>
+  </tr>
+</table>
+
+</div>
+
+---
+
 ## License
 
-[MIT](LICENSE) — © 2026 David Ericson
+[MIT](LICENSE) — © 2026
