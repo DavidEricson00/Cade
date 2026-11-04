@@ -1,0 +1,121 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: var(--e-6);
+}
+
+/* Relatórios e exportação */
+.cardsGrid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--e-6);
+}
+
+@media (min-width: 1024px) {
+  .cardsGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: stretch;
+  }
+}
+
+.tagCard {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding-top: var(--e-8);
+  background: var(--superficie);
+  border: var(--borda-forte);
+  border-radius: var(--raio-md);
+  box-shadow: var(--sombra-dura);
+}
+
+.hole {
+  position: absolute;
+  top: var(--e-3);
+  left: var(--e-5);
+  width: 12px;
+  height: 12px;
+  background: var(--papel);
+  border: var(--borda-forte);
+  border-radius: 50%;
+}
+
+.cardBody {
+  display: flex;
+  flex-direction: column;
+  gap: var(--e-4);
+  padding: 0 var(--e-5) var(--e-6);
+}
+
+.cardTitleRow {
+  display: flex;
+  align-items: center;
+  gap: var(--e-2);
+}
+
+.dateRow {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--e-3);
+}
+
+@media (min-width: 480px) {
+  .dateRow {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.delimiterGroup {
+  display: flex;
+  flex-direction: column;
+  gap: var(--e-2);
+}
+
+.delimiterLabel {
+  font-size: var(--t-pequeno);
+  font-weight: 600;
+  color: var(--tinta);
+}
+
+.cardStub {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--e-3);
+  padding: var(--e-4) var(--e-5);
+  background: var(--kraft);
+  border-top: 1.5px dashed var(--tinta);
+  border-radius: 0 0 calc(var(--raio-md) - 2px) calc(var(--raio-md) - 2px);
+}
+
+/* Registros de acesso */
+.logsToolbar {
+  display: flex;
+  flex-direction: column;
+  gap: var(--e-4);
+  padding: var(--e-4);
+  background: var(--superficie);
+  border: var(--borda-forte);
+  border-radius: var(--raio-md);
+}
+
+.logsControls {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--e-4);
+}
+
+@media (min-width: 640px) {
+  .logsControls {
+    grid-template-columns: 220px minmax(240px, 340px);
+  }
+}
+
+.logsSkeleton {
+  height: 280px;
+  background: var(--kraft);
+  border: var(--borda-forte);
+  border-radius: var(--raio-md);
+}
