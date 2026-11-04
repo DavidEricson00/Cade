@@ -6,7 +6,7 @@ settings:
 
 importers:
 
-  .:
+  api:
     dependencies:
       bcryptjs:
         specifier: ^3.0.3
