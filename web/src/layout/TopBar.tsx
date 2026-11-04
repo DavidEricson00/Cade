@@ -19,7 +19,7 @@ export function TopBar() {
   return (
     <header className={styles.topbar}>
       <div className={styles.mobile}>
-        <Link to="/itens" className={styles.mark} aria-label="O Cadê? — ir para os itens">
+        <Link to="/itens" className={styles.mark} aria-label="Cadê? — ir para os itens">
           <Logo size="sm" showIcon={false} />
         </Link>
         <span className={styles.title} aria-hidden="true">
@@ -28,7 +28,7 @@ export function TopBar() {
       </div>
 
       <div className={styles.tablet}>
-        <Link to="/itens" className={styles.mark} aria-label="O Cadê? — ir para os itens">
+        <Link to="/itens" className={styles.mark} aria-label="Cadê? — ir para os itens">
           <Logo size="sm" />
         </Link>
         <nav aria-label="Principal" className={styles.nav}>

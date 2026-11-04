@@ -18,7 +18,7 @@ export function Sidebar() {
 
   return (
     <aside className={styles.sidebar}>
-      <Link to="/itens" className={styles.brand} aria-label="O Cadê? — ir para os itens">
+      <Link to="/itens" className={styles.brand} aria-label="Cadê? — ir para os itens">
         <Logo />
       </Link>
 

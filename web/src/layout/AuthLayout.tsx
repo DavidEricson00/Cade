@@ -36,7 +36,7 @@ export function AuthLayout() {
 
       <div className={styles.content}>
         <header className={styles.header}>
-          <Link to="/itens" className={styles.mark} aria-label="O Cadê? — ver itens">
+          <Link to="/itens" className={styles.mark} aria-label="Cadê? — ver itens">
             <Logo />
           </Link>
         </header>

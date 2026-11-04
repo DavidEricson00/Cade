@@ -7,7 +7,7 @@ const titleStore = createStore('');
 export function usePageTitle(title: string): void {
   useEffect(() => {
     titleStore.set(title);
-    document.title = title ? `${title} · O Cadê?` : 'O Cadê?';
+    document.title = title ? `${title} · Cadê?` : 'Cadê?';
   }, [title]);
 }
 
