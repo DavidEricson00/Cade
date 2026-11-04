@@ -1,6 +1,6 @@
 packages:
-  - "."
-  - "web"
+  - api
+  - web
 allowBuilds:
   '@parcel/watcher': false
   esbuild: true
