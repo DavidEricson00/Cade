@@ -1,0 +1,21 @@
+.liveRegion {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 50;
+}
+
+.offline {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--e-2);
+  padding: calc(env(safe-area-inset-top) + var(--e-1)) var(--e-4) var(--e-1);
+  font-size: var(--t-pequeno);
+  font-weight: 600;
+  color: var(--tinta);
+  background: var(--aviso-claro);
+  border-bottom: var(--borda-forte);
+}
+
