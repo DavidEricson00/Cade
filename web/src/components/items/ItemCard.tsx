@@ -100,3 +100,4 @@ export function ItemCardSkeleton() {
 export function ItemGrid({ children }: { children: ReactNode }) {
   return <div className={styles.grid}>{children}</div>;
 }
+

@@ -124,3 +124,4 @@ export function FilterChips<T extends string>({
     </div>
   );
 }
+

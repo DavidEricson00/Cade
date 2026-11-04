@@ -83,3 +83,4 @@ export function LogTable({ logs, timeZone }: LogTableProps) {
     </div>
   );
 }
+

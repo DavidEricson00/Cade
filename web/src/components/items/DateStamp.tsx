@@ -34,3 +34,4 @@ export function DateStamp({ date, flat = false, animate = false, className }: Da
     </span>
   );
 }
+
