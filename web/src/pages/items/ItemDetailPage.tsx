@@ -153,10 +153,10 @@ export function ItemDetailPage() {
       </div>
 
       <article className={styles.detailCard}>
-        {/* Coluna da foto */}
+        <span className={styles.detailTape} aria-hidden="true" />
+
         <div className={styles.detailMedia}>
           <span className={styles.detailHole} aria-hidden="true" />
-          <span className={styles.detailTape} aria-hidden="true" />
 
           {item.imageUrl ? (
             <button
@@ -252,7 +252,6 @@ export function ItemDetailPage() {
         </Modal>
       )}
 
-      {/* Confirmação de exclusão */}
       <ConfirmDeleteModal
         open={deleteOpen}
         itemName={item.name}
@@ -263,4 +262,3 @@ export function ItemDetailPage() {
     </div>
   );
 }
-
