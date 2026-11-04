@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { BrowserRouter } from 'react-router';
 import { setApiHandlers } from './api/client';
 import { expireSession } from './auth/session';
+import { ToastViewport } from './components/ui/Toast';
 import { AppRoutes } from './routes';
 import { SystemGate } from './system/SystemGate';
 import { setOffline, setSystemMode } from './system/system';
@@ -34,6 +35,7 @@ export function App() {
     <BrowserRouter>
       <SystemGate>
         <AppRoutes />
+        <ToastViewport />
       </SystemGate>
     </BrowserRouter>
   );
