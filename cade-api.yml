@@ -30,7 +30,16 @@ item:
               raw:
                 language: json
         response: []
-      - name: Login
+      - name: Login (etapa 1 - envia código 2FA)
+        event:
+          - listen: test
+            script:
+              type: text/javascript
+              exec:
+                - "const json = pm.response.json();"
+                - "if (json.success && json.data && json.data.challengeToken) {"
+                - "  pm.collectionVariables.set('challengeToken', json.data.challengeToken);"
+                - "}"
         request:
           method: POST
           url: "{{baseUrl}}/auth/login"
@@ -44,6 +53,55 @@ item:
             options:
               raw:
                 language: json
+        response: []
+      - name: Verificar código 2FA (etapa 2 - retorna token)
+        event:
+          - listen: test
+            script:
+              type: text/javascript
+              exec:
+                - "const json = pm.response.json();"
+                - "if (json.success && json.data && json.data.token) {"
+                - "  pm.collectionVariables.set('token', json.data.token);"
+                - "}"
+        request:
+          method: POST
+          url: "{{baseUrl}}/auth/2fa/verify"
+          auth:
+            type: bearer
+            bearer:
+              - key: token
+                value: "{{challengeToken}}"
+                type: string
+          body:
+            mode: raw
+            raw: |
+              {
+                "code": "123456"
+              }
+            options:
+              raw:
+                language: json
+        response: []
+      - name: Reenviar código 2FA
+        event:
+          - listen: test
+            script:
+              type: text/javascript
+              exec:
+                - "const json = pm.response.json();"
+                - "if (json.success && json.data && json.data.challengeToken) {"
+                - "  pm.collectionVariables.set('challengeToken', json.data.challengeToken);"
+                - "}"
+        request:
+          method: POST
+          url: "{{baseUrl}}/auth/2fa/resend"
+          auth:
+            type: bearer
+            bearer:
+              - key: token
+                value: "{{challengeToken}}"
+                type: string
         response: []
   - name: Itens
     item:
