@@ -1,0 +1,135 @@
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--e-2);
+}
+
+.labelRow {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--e-2);
+}
+
+.label {
+  font-size: var(--t-pequeno);
+  font-weight: 600;
+  line-height: 1.45;
+  color: var(--tinta);
+}
+
+.corner {
+  font-size: var(--t-pequeno);
+  color: var(--tinta-suave);
+}
+
+.counter {
+  font-family: var(--fonte-mono);
+  font-size: var(--t-rotulo);
+  color: var(--tinta-suave);
+}
+
+.control {
+  width: 100%;
+  min-height: 44px;
+  padding: var(--e-3);
+  font-family: var(--fonte-texto);
+  font-size: var(--t-corpo);
+  line-height: 1.3;
+  color: var(--tinta);
+  background: var(--superficie);
+  border: var(--borda-forte);
+  border-radius: var(--raio-controle);
+  transition: border-color var(--duracao-curta) var(--easing);
+}
+
+.control::placeholder {
+  color: var(--tinta-suave);
+  opacity: 0.75;
+}
+
+.control:focus-visible {
+  outline: none;
+  border-color: var(--tinta);
+  box-shadow: var(--anel-foco);
+}
+
+.control[data-error] {
+  border-color: var(--erro);
+}
+
+.control:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+  background: var(--kraft);
+}
+
+.textarea {
+  min-height: 112px;
+  line-height: 1.55;
+  resize: vertical;
+}
+
+.passwordWrap,
+.selectWrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.passwordInput {
+  padding-right: 48px;
+}
+
+.eyeButton {
+  position: absolute;
+  right: 2px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  color: var(--tinta-suave);
+  background: transparent;
+  border: none;
+  border-radius: var(--raio-sm);
+}
+
+.eyeButton:hover {
+  color: var(--tinta);
+}
+
+.select {
+  padding-right: 40px;
+  appearance: none;
+  cursor: pointer;
+}
+
+.selectIcon {
+  position: absolute;
+  right: var(--e-3);
+  color: var(--tinta);
+  pointer-events: none;
+}
+
+.errorText {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+  font-size: var(--t-pequeno);
+  font-weight: 500;
+  line-height: 1.4;
+  color: var(--erro);
+}
+
+.errorText svg {
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.hint {
+  font-size: var(--t-pequeno);
+  line-height: 1.45;
+  color: var(--tinta-suave);
+}
+

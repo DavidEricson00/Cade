@@ -1,0 +1,128 @@
+.viewport {
+  position: fixed;
+  right: var(--padding-pagina);
+  bottom: calc(var(--tabbar) + env(safe-area-inset-bottom) + var(--e-3));
+  left: var(--padding-pagina);
+  z-index: 70;
+  display: flex;
+  flex-direction: column;
+  gap: var(--e-2);
+  pointer-events: none;
+}
+
+@media (min-width: 640px) {
+  .viewport {
+    left: auto;
+    bottom: var(--e-6);
+    width: 380px;
+  }
+}
+
+.toast {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--e-3);
+  padding: var(--e-3) var(--e-4);
+  color: var(--tinta);
+  background: var(--superficie);
+  border: var(--borda-forte);
+  border-radius: var(--raio-controle);
+  box-shadow: var(--sombra-dura-sm);
+  pointer-events: auto;
+  animation: entrar var(--duracao) var(--easing);
+}
+
+.toast[data-kind='error'] {
+  background: var(--erro-claro);
+  border-color: var(--erro);
+}
+
+.iconSuccess {
+  flex-shrink: 0;
+  margin-top: 2px;
+  color: var(--mata);
+}
+
+.iconError {
+  flex-shrink: 0;
+  margin-top: 2px;
+  color: var(--erro);
+}
+
+.iconInfo {
+  flex-shrink: 0;
+  margin-top: 2px;
+  color: var(--tinta);
+}
+
+.message {
+  flex: 1;
+  font-size: var(--t-pequeno);
+  font-weight: 500;
+  line-height: 1.45;
+}
+
+.closeBtn {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  margin: -4px -6px -4px 0;
+  color: var(--tinta-suave);
+  background: transparent;
+  border: none;
+  border-radius: 4px;
+}
+
+.closeBtn:hover {
+  color: var(--tinta);
+}
+
+/* InlineNotice */
+.notice {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--e-3);
+  padding: var(--e-3) var(--e-4);
+  font-size: var(--t-pequeno);
+  line-height: 1.45;
+  color: var(--tinta);
+  background: var(--aviso-claro);
+  border: 1px solid var(--fita-escura);
+  border-radius: var(--raio-controle);
+}
+
+.notice[data-tone='error'] {
+  color: var(--erro);
+  background: var(--erro-claro);
+  border-color: var(--erro);
+}
+
+.notice[data-tone='success'] {
+  color: var(--mata);
+  background: var(--mata-claro);
+  border-color: var(--mata);
+}
+
+.notice svg {
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.noticeContent {
+  flex: 1;
+}
+
+@keyframes entrar {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+

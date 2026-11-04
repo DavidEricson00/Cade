@@ -1,0 +1,193 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--e-5);
+}
+
+.heading {
+  display: flex;
+  flex-direction: column;
+  gap: var(--e-2);
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--e-4);
+}
+
+.footerLinks {
+  display: flex;
+  flex-direction: column;
+  gap: var(--e-2);
+  padding-top: var(--e-3);
+  border-top: var(--borda-leve);
+}
+
+.ghostLink {
+  color: var(--tinta-suave);
+}
+
+.ghostLink:hover {
+  color: var(--tinta);
+}
+
+/* 2FA */
+.timerRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--e-2);
+  padding: var(--e-2) var(--e-3);
+  background: var(--kraft);
+  border: var(--borda-leve);
+  border-radius: var(--raio-sm);
+}
+
+.expiredBadge {
+  font-family: var(--fonte-mono);
+  font-size: var(--t-rotulo);
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--erro);
+}
+
+.otpWrap {
+  position: relative;
+  cursor: text;
+}
+
+.otpHiddenInput {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  caret-color: transparent;
+  cursor: pointer;
+}
+
+.otpBoxes {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: var(--e-2);
+}
+
+.otpBox {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 48px;
+  height: 52px;
+  margin: 0 auto;
+  font-family: var(--fonte-mono);
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: var(--tinta);
+  background: var(--superficie);
+  border: var(--borda-forte);
+  border-radius: var(--raio-controle);
+  transition:
+    box-shadow var(--duracao-curta) var(--easing),
+    background-color var(--duracao-curta) var(--easing);
+}
+
+@media (min-width: 480px) {
+  .otpBox {
+    height: 56px;
+  }
+}
+
+.otpBox[data-focused] {
+  box-shadow: var(--anel-foco);
+}
+
+.otpBox[data-filled] {
+  background: var(--papel);
+}
+
+.otpBox[data-disabled] {
+  opacity: 0.5;
+  background: var(--kraft);
+}
+
+.shake {
+  animation: sacudir 200ms var(--easing);
+}
+
+@keyframes sacudir {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-5px);
+  }
+  75% {
+    transform: translateX(5px);
+  }
+}
+
+.resendArea {
+  display: flex;
+  flex-direction: column;
+  gap: var(--e-3);
+  padding-top: var(--e-2);
+}
+
+/* Tela Conta */
+.accountPage {
+  max-width: 560px;
+}
+
+.accountCard {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--e-4);
+  padding: var(--e-8) var(--e-5) 0;
+  background: var(--superficie);
+  border: var(--borda-forte);
+  border-radius: var(--raio-md);
+  box-shadow: var(--sombra-dura);
+}
+
+.accountHole {
+  position: absolute;
+  top: var(--e-3);
+  left: var(--e-5);
+  width: 12px;
+  height: 12px;
+  background: var(--papel);
+  border: var(--borda-forte);
+  border-radius: 50%;
+}
+
+.accountRow {
+  display: flex;
+  flex-direction: column;
+  gap: var(--e-1);
+}
+
+.accountEmail {
+  font-family: var(--fonte-mono);
+  font-size: var(--t-h3);
+  word-break: break-all;
+}
+
+.accountStub {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--e-3);
+  margin: var(--e-2) calc(-1 * var(--e-5)) 0;
+  padding: var(--e-4) var(--e-5);
+  background: var(--kraft);
+  border-top: 1.5px dashed var(--tinta);
+  border-radius: 0 0 calc(var(--raio-md) - 2px) calc(var(--raio-md) - 2px);
+}
+

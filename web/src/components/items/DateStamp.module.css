@@ -1,0 +1,40 @@
+.stamp {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: var(--e-1) 10px;
+  font-family: var(--fonte-mono);
+  font-size: var(--t-rotulo);
+  font-weight: 500;
+  line-height: 1.3;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: var(--mata);
+  background: var(--superficie);
+  border: 1.5px solid var(--mata);
+  outline: 1px solid var(--mata);
+  outline-offset: 2px;
+  border-radius: 3px;
+  transform: rotate(-2.5deg);
+}
+
+.flat {
+  transform: none;
+}
+
+.animate {
+  animation: carimbar 200ms var(--easing) both;
+}
+
+@keyframes carimbar {
+  from {
+    opacity: 0;
+    transform: rotate(-2.5deg) scale(1.15);
+  }
+  to {
+    opacity: 1;
+    transform: rotate(-2.5deg) scale(1);
+  }
+}
+

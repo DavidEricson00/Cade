@@ -1,0 +1,102 @@
+.tabbar {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 30;
+  background: var(--superficie);
+  border-top: var(--borda-forte);
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+.tabbar ul {
+  display: flex;
+  align-items: stretch;
+  height: var(--tabbar);
+  padding: 0 env(safe-area-inset-right) 0 env(safe-area-inset-left);
+  list-style: none;
+}
+
+.tabbar li {
+  display: flex;
+  flex: 1;
+  justify-content: center;
+}
+
+.tab {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  width: 100%;
+  min-width: var(--alvo-toque);
+  color: var(--tinta-suave);
+  text-decoration: none;
+}
+
+.tab:hover {
+  color: var(--tinta);
+}
+
+.tab[data-active] {
+  color: var(--tinta);
+}
+
+.tab[data-active] .label {
+  font-weight: 600;
+}
+
+.tab[data-active] .label::after {
+  content: '';
+  display: block;
+  height: 3px;
+  margin-top: 2px;
+  background: var(--urucum);
+}
+
+.label {
+  font-size: var(--t-rotulo);
+  font-weight: 500;
+  line-height: 1.2;
+}
+
+/* Botão "Novo": retangular, urucum, levemente elevado */
+.primary {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  width: 64px;
+  height: 56px;
+  margin-top: -10px;
+  color: var(--branco);
+  text-decoration: none;
+  background: var(--urucum);
+  border: var(--borda-forte);
+  border-radius: var(--raio-md);
+  box-shadow: var(--sombra-dura-sm);
+  transition: transform var(--duracao-curta) var(--easing);
+}
+
+.primary:hover {
+  color: var(--branco);
+  background: var(--urucum-escuro);
+}
+
+.primary:active {
+  box-shadow: none;
+  transform: translate(2px, 2px);
+}
+
+.primary .label {
+  font-weight: 600;
+}
+
+@media (min-width: 640px) {
+  .tabbar {
+    display: none;
+  }
+}

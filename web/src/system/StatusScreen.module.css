@@ -1,0 +1,39 @@
+.screen {
+  display: flex;
+  flex-direction: column;
+  min-height: 100dvh;
+  padding: calc(env(safe-area-inset-top) + var(--e-6)) var(--padding-pagina)
+    calc(env(safe-area-inset-bottom) + var(--e-8));
+}
+
+.header {
+  width: 100%;
+  max-width: var(--largura-form);
+  margin: 0 auto;
+}
+
+.main {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: var(--e-4);
+  width: 100%;
+  max-width: var(--largura-form);
+  margin: 0 auto;
+}
+
+.illustration {
+  margin-bottom: var(--e-4);
+}
+
+.description {
+  color: var(--tinta-suave);
+  font-size: 1.125rem;
+}
+
+.action {
+  margin-top: var(--e-4);
+}
+

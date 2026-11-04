@@ -1,0 +1,134 @@
+.shell {
+  min-height: 100dvh;
+}
+
+.panel {
+  display: none;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  min-height: 100dvh;
+  padding: calc(env(safe-area-inset-top) + var(--e-6)) var(--padding-pagina)
+    calc(env(safe-area-inset-bottom) + var(--e-8));
+}
+
+.header {
+  width: 100%;
+  max-width: var(--largura-form);
+  margin: 0 auto var(--e-10);
+}
+
+.mark {
+  display: inline-flex;
+  min-height: var(--alvo-toque);
+  align-items: center;
+  color: var(--tinta);
+  text-decoration: none;
+  border-radius: var(--raio-controle);
+}
+
+.main {
+  width: 100%;
+  max-width: var(--largura-form);
+  margin: 0 auto;
+}
+
+.main:focus {
+  outline: none;
+}
+
+/* Painel decorativo (desktop) */
+.tags {
+  position: relative;
+  width: 320px;
+  height: 340px;
+  margin: auto;
+}
+
+.tag {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  gap: var(--e-2);
+  width: 220px;
+  padding: var(--e-8) var(--e-4) var(--e-4);
+  background: var(--superficie);
+  border: var(--borda-forte);
+  border-radius: var(--raio-md);
+  box-shadow: var(--sombra-dura);
+  clip-path: polygon(14px 0, calc(100% - 14px) 0, 100% 14px, 100% 100%, 0 100%, 0 14px);
+}
+
+.tagA {
+  top: 0;
+  left: 0;
+  transform: rotate(-6deg);
+}
+
+.tagB {
+  top: 96px;
+  right: 0;
+  transform: rotate(4deg);
+}
+
+.tagC {
+  bottom: 0;
+  left: 36px;
+  transform: rotate(-2deg);
+}
+
+.hole {
+  position: absolute;
+  top: var(--e-3);
+  left: 50%;
+  width: 12px;
+  height: 12px;
+  margin-left: -6px;
+  background: var(--kraft);
+  border: var(--borda-forte);
+  border-radius: 50%;
+}
+
+.tape {
+  position: absolute;
+  top: -6px;
+  right: 24px;
+  width: 56px;
+  height: 18px;
+  background: var(--fita);
+  opacity: 0.85;
+  transform: rotate(8deg);
+}
+
+.tagTitle {
+  font-family: var(--fonte-titulo);
+  font-size: var(--t-h3);
+  font-weight: 600;
+  line-height: 1.25;
+}
+
+@media (min-width: 1024px) {
+  .shell {
+    display: grid;
+    grid-template-columns: minmax(380px, 480px) minmax(0, 1fr);
+  }
+
+  .panel {
+    display: flex;
+    flex-direction: column;
+    padding: var(--e-10);
+    background: var(--kraft);
+    border-right: var(--borda-forte);
+  }
+
+  .header {
+    display: none;
+  }
+
+  .content {
+    justify-content: center;
+  }
+}
+
