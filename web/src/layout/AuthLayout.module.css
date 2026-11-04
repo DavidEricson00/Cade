@@ -39,43 +39,78 @@
   outline: none;
 }
 
-/* Painel decorativo (desktop) */
 .tags {
   position: relative;
-  width: 320px;
-  height: 340px;
+  width: 340px;
+  height: 400px;
   margin: auto;
+  padding: 16px;
+  overflow: visible;
 }
 
 .tag {
+  --tag-borda: 2px;
+  --tag-chanfro: 14px;
+
   position: absolute;
+  isolation: isolate;
   display: flex;
   flex-direction: column;
   gap: var(--e-2);
   width: 220px;
   padding: var(--e-8) var(--e-4) var(--e-4);
-  background: var(--superficie);
-  border: var(--borda-forte);
+  filter: drop-shadow(4px 4px 0 var(--tinta));
+}
+
+.tag::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: var(--tinta);
   border-radius: var(--raio-md);
-  box-shadow: var(--sombra-dura);
-  clip-path: polygon(14px 0, calc(100% - 14px) 0, 100% 14px, 100% 100%, 0 100%, 0 14px);
+  clip-path: polygon(
+    var(--tag-chanfro) 0,
+    calc(100% - var(--tag-chanfro)) 0,
+    100% var(--tag-chanfro),
+    100% 100%,
+    0 100%,
+    0 var(--tag-chanfro)
+  );
+}
+
+.tag::after {
+  content: "";
+  position: absolute;
+  inset: var(--tag-borda);
+  z-index: -1;
+  background: var(--superficie);
+  border-radius: calc(var(--raio-md) - var(--tag-borda));
+  clip-path: polygon(
+    calc(var(--tag-chanfro) - 1.2px) 0,
+    calc(100% - var(--tag-chanfro) + 1.2px) 0,
+    100% calc(var(--tag-chanfro) - 1.2px),
+    100% 100%,
+    0 100%,
+    0 calc(var(--tag-chanfro) - 1.2px)
+  );
 }
 
 .tagA {
-  top: 0;
-  left: 0;
+  top: 16px;
+  left: 16px;
   transform: rotate(-6deg);
 }
 
 .tagB {
-  top: 96px;
-  right: 0;
+  top: 150px;
+  right: 16px;
   transform: rotate(4deg);
 }
 
 .tagC {
-  bottom: 0;
-  left: 36px;
+  bottom: 16px;
+  left: 40px;
   transform: rotate(-2deg);
 }
 
@@ -93,7 +128,7 @@
 
 .tape {
   position: absolute;
-  top: -6px;
+  top: -8px;
   right: 24px;
   width: 56px;
   height: 18px;
@@ -131,4 +166,3 @@
     justify-content: center;
   }
 }
-

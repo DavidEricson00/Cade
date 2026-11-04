@@ -35,7 +35,7 @@ export function Logo({ size = 'md', showIcon = true }: LogoProps) {
     <span className={`${styles.logo} ${styles[size]}`}>
       {showIcon && <TagIcon size={iconSize} className={styles.icon} />}
       <span className={styles.wordmark}>
-        O Cadê<span className={styles.question}>?</span>
+        Cadê<span className={styles.question}>?</span>
       </span>
     </span>
   );
