@@ -10,10 +10,10 @@
   letter-spacing: 0.08em;
   text-transform: uppercase;
   white-space: nowrap;
-  color: var(--mata);
+  color: var(--urucum);
   background: var(--superficie);
-  border: 1.5px solid var(--mata);
-  outline: 1px solid var(--mata);
+  border: 1.5px solid var(--urucum);
+  outline: 1px solid var(--urucum);
   outline-offset: 2px;
   border-radius: 3px;
   transform: rotate(-2.5deg);

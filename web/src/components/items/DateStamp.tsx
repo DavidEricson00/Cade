@@ -29,7 +29,6 @@ export function DateStamp({ date, flat = false, animate = false, className }: Da
         .join(' ')}
       title={`Achado em ${fullDate}`}
     >
-      <Check size={12} strokeWidth={2.25} aria-hidden="true" />
       <span>ACHADO · {shortText}</span>
     </span>
   );
