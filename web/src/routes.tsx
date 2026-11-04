@@ -4,6 +4,7 @@ import { AppLayout } from './layout/AppLayout';
 import { AuthLayout } from './layout/AuthLayout';
 import { PageHeader } from './layout/PageHeader';
 import { usePageTitle } from './layout/page-title';
+import { DevShowcasePage } from './pages/DevShowcasePage';
 
 function PlaceholderPage({
   title,
@@ -121,16 +122,7 @@ export function AppRoutes() {
             />
           }
         />
-        <Route
-          path="/dev"
-          element={
-            <PlaceholderPage
-              title="Mostruário de componentes"
-              stage="Etapa 2 · Componentes"
-              description="Catálogo vivo de botões, campos, cartão-etiqueta, carimbo, modais e estados."
-            />
-          }
-        />
+        <Route path="/dev" element={<DevShowcasePage />} />
 
         {/* Protegidas */}
         <Route element={<RequireAuth />}>
